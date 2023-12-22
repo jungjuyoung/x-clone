@@ -1,6 +1,7 @@
 "use client";
 
 import style from "@/app/(beforeLogin)/_component/loginModal.module.css";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function LoginModal() {
@@ -9,7 +10,12 @@ export default function LoginModal() {
   const [message, setmMessage] = useState();
 
   const onSubmit = () => {};
-  const onClickClose = () => {};
+  const router = useRouter();
+  const onClickClose = () => {
+    router.back();
+    // TODO: 뒤로가기가 /home이 아니면 /home으로 보내기
+  };
+
   const onChangeId = () => {};
   const onChangePassword = () => {};
 
