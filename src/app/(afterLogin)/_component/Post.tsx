@@ -3,7 +3,7 @@ import Link from "next/link";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/ko";
-// import ActionButtons from "@/app/(afterLogin)/_component/ActionButtons";
+import ActionButtons from "@/app/(afterLogin)/_component/ActionButtons";
 // import PostArticle from "@/app/(afterLogin)/_component/PostArticle";
 import { faker } from "@faker-js/faker";
 // import PostImages from "@/app/(afterLogin)/_component/PostImages";
@@ -60,7 +60,7 @@ export default function Post({ noImage }: Props) {
         {/* <div>
             <PostImages post={target} />
           </div> */}
-        {/* <ActionButtons /> */}
+        <ActionButtons />
       </div>
     </div>
     // </PostArticle>
