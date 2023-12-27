@@ -10,6 +10,8 @@ const Home = () => {
         <Tab />
         <PostForm />
         <Post />
+        <Post />
+        <Post />
       </TabProvider>
     </main>
   );
