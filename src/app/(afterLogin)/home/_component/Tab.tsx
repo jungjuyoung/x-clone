@@ -10,6 +10,7 @@ export default function Tab() {
   const onClickFollowing = () => {
     setTab("following");
   };
+  console.log('tab',tab);
   return (
     <div className={style.homeFixed}>
       <div className={style.homeText}>홈</div>
