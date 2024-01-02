@@ -26,6 +26,7 @@ export default function Post({ noImage }: Props) {
     createdAt: new Date(),
     Images: [] as any[],
   };
+
   if (Math.random() > 0.5 && !noImage) {
     target.Images.push(
       { imageId: 1, link: faker.image.urlLoremFlickr() },
@@ -57,9 +58,17 @@ export default function Post({ noImage }: Props) {
             </span>
           </div>
           <div>{target.content}</div>
-          {/* <div>
-            <PostImages post={target} />
-          </div> */}
+          <div>
+            {/* <PostImages post={target} /> */}
+            {target.Images && target.Images.length > 0 && (
+              <Link
+                href={`/${target.User.id}/status/${target.postId}/photo/${target.Images[0].imageId}`}
+                className={style.postImageSection}
+              >
+                <img src={target.Images[0]?.link} alt="" />
+              </Link>
+            )}
+          </div>
           <ActionButtons />
         </div>
       </div>

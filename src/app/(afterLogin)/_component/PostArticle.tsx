@@ -22,7 +22,7 @@ type Props = {
 export default function PostArticle({ children, post }: Props) {
   const router = useRouter();
   const onClick = () => {
-    console.log("PostArticle onClickCapture router.push call");
+    // console.log("PostArticle onClickCapture router.push call");
     router.push(`/${post.User.id}/status/${post.postId}`);
   };
 
