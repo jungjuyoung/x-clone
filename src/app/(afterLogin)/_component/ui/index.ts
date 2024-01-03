@@ -1,0 +1,8 @@
+export { default as HomeIcon } from './HomeIcon'
+export { default as HomeFillIcon } from './HomeFillIcon'
+export { default as ExploreIcon } from './ExploreIcon'
+export { default as ExploreFillIcon } from './ExploreFillcon'
+export { default as MessagesIcon } from './MessagesIcon'
+export { default as MessagesFillIcon } from './MessagesFillIcon'
+export { default as ProfileIcon } from './ProfileIcon'
+export { default as ProfileFillIcon } from './ProfileFillIcon'
