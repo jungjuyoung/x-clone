@@ -17,7 +17,6 @@ export default function Default() {
     <div className={style.container}>
       <PhotoModalCloseButton />
       <div className={style.imageZone}>
-        <img src={photo.link} alt={photo.Post?.content} />
         <div
           className={style.image}
           style={{ backgroundImage: `url(${photo.link})` }}

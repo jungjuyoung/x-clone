@@ -28,6 +28,7 @@ export default function Post({ noImage }: Props) {
   };
 
   if (Math.random() > 0.5 && !noImage) {
+    // Math.random() > 0.5 반반확률로 이미지가 있고 이미지가 없고 noImage boolean값이 true일때
     target.Images.push(
       { imageId: 1, link: faker.image.urlLoremFlickr() },
       { imageId: 2, link: faker.image.urlLoremFlickr() },
@@ -35,7 +36,6 @@ export default function Post({ noImage }: Props) {
       { imageId: 4, link: faker.image.urlLoremFlickr() }
     );
   }
-
   return (
     <PostArticle post={target}>
       <div className={style.postWrapper}>
@@ -62,7 +62,7 @@ export default function Post({ noImage }: Props) {
             {/* <PostImages post={target} /> */}
             {target.Images && target.Images.length > 0 && (
               <Link
-                href={`/${target.User.id}/status/${target.postId}/photo/${target.Images[0].imageId}`}
+                href={`/${target.User.id}/status/${target.postId}/photo/${target.Images[0]?.imageId}`}
                 className={style.postImageSection}
               >
                 <img src={target.Images[0]?.link} alt="" />

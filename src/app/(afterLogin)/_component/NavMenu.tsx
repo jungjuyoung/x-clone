@@ -16,7 +16,7 @@ import {
 
 export default function NavMenu() {
   const segment = useSelectedLayoutSegment();
-  console.log(segment);
+  // console.log(segment);
 
   const me = {
     // 임시로 내 정보 있는것처럼
