@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import BackButton from "./BackButton";
 
 export default function SignupModal() {
-  const submit = async (formData: FormData) => {
+  const onSubmit = async (formData: FormData) => {
     "use server";
     let shouldRedirect = false;
 
@@ -11,7 +11,6 @@ export default function SignupModal() {
     if (!formData.get("name")) return { message: "no name" };
     if (!formData.get("password")) return { message: "no password" };
     if (!formData.get("image")) return { message: "no image" };
-
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/users`,
@@ -41,7 +40,7 @@ export default function SignupModal() {
             <BackButton />
             <div>계정을 생성하세요.</div>
           </div>
-          <form>
+          <form action={onSubmit}>
             <div className={style.modalBody}>
               <div className={style.inputDiv}>
                 <label className={style.inputLabel} htmlFor="id">
