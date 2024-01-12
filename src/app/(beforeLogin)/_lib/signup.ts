@@ -1,7 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
-// import { signIn } from "@/auth";
+import { signIn } from "@/auth";
 
 export default async function onSubmit(prevState: any, formData: FormData) {
   if (!formData.get('id') || !(formData.get('id') as string)?.trim()) {
@@ -27,13 +27,13 @@ export default async function onSubmit(prevState: any, formData: FormData) {
     if (response.status === 403) {
       return { message: 'user_exists' };
     }
-    console.log(await response.json())
+    console.log('response: ', await response.json())
     shouldRedirect = true;
-    // await signIn("credentials", {
-    //   username: formData.get('id'),
-    //   password: formData.get('password'),
-    //   redirect: false,
-    // })
+    await signIn("credentials", {
+      username: formData.get('id'),
+      password: formData.get('password'),
+      redirect: false,
+    })
   } catch (err) {
     console.error(err);
     return;

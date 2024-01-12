@@ -1,6 +1,6 @@
 "use client";
 
-import style from "@/app/(beforeLogin)/_component/loginmodal.module.css";
+import style from "@/app/(beforeLogin)/_component/login.module.css";
 import { ChangeEventHandler, FormEventHandler, useState } from "react";
 import { redirect, useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
@@ -14,6 +14,7 @@ export default function LoginModal() {
   const onSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
     setMessage("");
+
     try {
       await signIn("credentials", {
         username: id,

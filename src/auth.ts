@@ -14,7 +14,6 @@ export const {
   providers: [
     CredentialsProvider({
       async authorize(credentials) {
-        console.log('auth CredentialsProvider authorize credentials: ', credentials)
         const authResponse = await fetch(`${process.env.AUTH_URL}/api/login`, {
           method: "POST",
           headers: {
@@ -22,7 +21,7 @@ export const {
           },
           body: JSON.stringify({
             id: credentials.username,
-            password: credentials.password,
+            password: credentials.password
           }),
         })
 
@@ -31,14 +30,9 @@ export const {
         }
 
         const user = await authResponse.json()
-        console.log('user', user);
-        return {
-          email: user.id,
-          name: user.nickname,
-          image: user.image,
-          ...user,
-        }
+
+        return user
       },
     }),
-  ]
+  ],
 });
