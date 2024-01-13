@@ -21,7 +21,7 @@ export const {
           },
           body: JSON.stringify({
             id: credentials.username,
-            password: credentials.password
+            password: credentials.password,
           }),
         })
 
@@ -30,9 +30,14 @@ export const {
         }
 
         const user = await authResponse.json()
-
-        return user
+        console.log('user', user);
+        return {
+          email: user.id,
+          name: user.nickname,
+          image: user.image,
+          ...user,
+        }
       },
     }),
-  ],
+  ]
 });

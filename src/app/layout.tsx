@@ -1,3 +1,4 @@
+import AuthContext from "./_component/AuthContext";
 import { MSWComponent } from "./_component/MSWComponent";
 import "./global.css";
 
@@ -10,7 +11,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <MSWComponent />
-        {children}
+        <AuthContext>{children}</AuthContext>
       </body>
     </html>
   );

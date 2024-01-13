@@ -25,7 +25,9 @@ function showMessage(message: string) {
 }
 
 export default function SignupModal() {
-  const [state, formAction] = useFormState(onSubmit, { message: null });
+  const [state, formAction] = useFormState(onSubmit, {
+    message: null,
+  });
   const { pending } = useFormStatus();
 
   return (
