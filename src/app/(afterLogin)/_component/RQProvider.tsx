@@ -23,7 +23,7 @@ function RQProvider({ children }: Props) {
     })
   );
 
-  console.log("RQProvider client: ", client);
+  // console.log("RQProvider client: ", client);
 
   return (
     <QueryClientProvider client={client}>

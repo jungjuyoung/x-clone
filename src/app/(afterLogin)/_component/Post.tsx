@@ -7,25 +7,18 @@ import ActionButtons from "@/app/(afterLogin)/_component/ActionButtons";
 import PostArticle from "@/app/(afterLogin)/_component/PostArticle";
 import { faker } from "@faker-js/faker";
 import PostImages from "@/app/(afterLogin)/_component/PostImages";
+import { Post } from "@/model/Post";
 
 dayjs.locale("ko");
 dayjs.extend(relativeTime);
 
 type Props = {
   noImage?: boolean;
+  post: Post;
 };
-export default function Post({ noImage }: Props) {
-  const target = {
-    postId: 1,
-    User: {
-      id: "elonmusk",
-      nickname: "Elon Musk",
-      image: "/yRsRRjGO.jpg",
-    },
-    content: "클론코딩 라이브로 하니 너무 힘들어요 ㅠㅠ",
-    createdAt: new Date(),
-    Images: [] as any[],
-  };
+
+export default function Post({ noImage, post }: Props) {
+  const target = post;
 
   if (Math.random() > 0.5 && !noImage) {
     // Math.random() > 0.5 반반확률로 이미지가 있고 이미지가 없고 noImage boolean값이 true일때
@@ -36,6 +29,7 @@ export default function Post({ noImage }: Props) {
       { imageId: 4, link: faker.image.urlLoremFlickr() }
     );
   }
+
   return (
     <PostArticle post={target}>
       <div className={style.postWrapper}>
