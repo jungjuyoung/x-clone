@@ -15,7 +15,7 @@ export default function LogoutButton() {
   // };
 
   if (!me?.user) return null;
-  console.log("LogoutButton me: ", me);
+  // console.log("LogoutButton me: ", me);
 
   const onLogout = () => {
     console.log("LogoutButton call signOut at onLogout function");
