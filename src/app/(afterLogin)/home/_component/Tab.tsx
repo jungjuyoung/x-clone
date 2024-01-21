@@ -1,9 +1,10 @@
 "use client";
-import { useState } from "react";
+import { useContext } from "react";
 import style from "./tab.module.css";
+import { TabContext } from "./TabProvider";
 
 export default function Tab() {
-  const [tab, setTab] = useState("recommend");
+  const { tab, setTab } = useContext(TabContext);
   const onClickRecommend = () => {
     setTab("recommend");
   };
