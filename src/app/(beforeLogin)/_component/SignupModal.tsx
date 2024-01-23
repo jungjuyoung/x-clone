@@ -99,7 +99,7 @@ export default function SignupModal() {
                 className={style.actionButton}
                 disabled={pending}
               >
-                가입하기
+                {pending ? "처리중..." : "가입하기"}
               </button>
               <div className={style.error}>{showMessage(state?.message)}</div>
             </div>
