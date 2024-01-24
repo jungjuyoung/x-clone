@@ -13,7 +13,7 @@ export default function PostRecommends() {
     gcTime: 300 * 1000, // 기본 5분 설정
   });
 
-  console.log("PostRecommends data: ", data);
+  // console.log("PostRecommends data: ", data);
 
   return (
     <>
