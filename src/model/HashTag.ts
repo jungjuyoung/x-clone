@@ -1,5 +1,5 @@
 export interface HashTag {
-  tadId: number,
+  tagId: number,
   title: string
   count: number
 }
