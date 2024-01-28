@@ -7,14 +7,12 @@ import { getTrends } from "@/app/(afterLogin)/_lib/getTrends";
 
 export default function TrendSection() {
   const queryClient = useQueryClient();
-  const data = queryClient.getQueryData(["trends"]);
+  const data = queryClient.getQueryData<HashTag[]>(["trends"]);
   // const { data } = useQuery<HashTag[]>({
   //   queryKey: ["trends"],
   //   queryFn: getTrends,
   //   staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
   //   gcTime: 300 * 1000,
   // });
-  return data?.map((trend: HashTag) => (
-    <Trend trend={trend} key={trend.tagId} />
-  ));
+  return data?.map((trend) => <Trend trend={trend} key={trend.tagId} />);
 }
