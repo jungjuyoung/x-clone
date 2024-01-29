@@ -22,6 +22,8 @@ export default function SinglePost({ id, noImage }: Props) {
     gcTime: 300 * 1000,
   });
   if (error) {
+    // console.log(error);
+    // console.dir(error);
     return (
       <div
         style={{

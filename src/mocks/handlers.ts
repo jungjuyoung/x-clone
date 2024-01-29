@@ -1,5 +1,5 @@
-import {http, HttpResponse, StrictResponse} from 'msw'
-import {faker} from "@faker-js/faker";
+import { http, HttpResponse, StrictResponse } from 'msw'
+import { faker } from "@faker-js/faker";
 
 function generateDate() {
   const lastWeek = new Date(Date.now());
@@ -10,9 +10,9 @@ function generateDate() {
   });
 }
 const User = [
-  {id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg'},
-  {id: 'nadia', nickname: '나디아', image: '/5Udwvqim.jpg'},
-  {id: 'zerocho', nickname: '제로초', image: faker.image.avatar()},
+  { id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg' },
+  { id: 'nadia', nickname: '나디아', image: '/5Udwvqim.jpg' },
+  { id: 'zerocho', nickname: '제로초', image: faker.image.avatar() },
 ]
 const Posts = [];
 const delay = (ms: number) => new Promise((res) => {
@@ -57,7 +57,7 @@ export const handlers = [
           postId: cursor + 1,
           User: User[0],
           content: `${cursor + 1} Z.com is so marvelous. I'm gonna buy that.`,
-          Images: [{imageId: 1, link: faker.image.urlLoremFlickr()}],
+          Images: [{ imageId: 1, link: faker.image.urlLoremFlickr() }],
           createdAt: generateDate(),
         },
         {
@@ -65,8 +65,8 @@ export const handlers = [
           User: User[0],
           content: `${cursor + 2} Z.com is so marvelous. I'm gonna buy that.`,
           Images: [
-            {imageId: 1, link: faker.image.urlLoremFlickr()},
-            {imageId: 2, link: faker.image.urlLoremFlickr()},
+            { imageId: 1, link: faker.image.urlLoremFlickr() },
+            { imageId: 2, link: faker.image.urlLoremFlickr() },
           ],
           createdAt: generateDate(),
         },
@@ -82,10 +82,10 @@ export const handlers = [
           User: User[0],
           content: `${cursor + 4} Z.com is so marvelous. I'm gonna buy that.`,
           Images: [
-            {imageId: 1, link: faker.image.urlLoremFlickr()},
-            {imageId: 2, link: faker.image.urlLoremFlickr()},
-            {imageId: 3, link: faker.image.urlLoremFlickr()},
-            {imageId: 4, link: faker.image.urlLoremFlickr()},
+            { imageId: 1, link: faker.image.urlLoremFlickr() },
+            { imageId: 2, link: faker.image.urlLoremFlickr() },
+            { imageId: 3, link: faker.image.urlLoremFlickr() },
+            { imageId: 4, link: faker.image.urlLoremFlickr() },
           ],
           createdAt: generateDate(),
         },
@@ -94,9 +94,9 @@ export const handlers = [
           User: User[0],
           content: `${cursor + 5} Z.com is so marvelous. I'm gonna buy that.`,
           Images: [
-            {imageId: 1, link: faker.image.urlLoremFlickr()},
-            {imageId: 2, link: faker.image.urlLoremFlickr()},
-            {imageId: 3, link: faker.image.urlLoremFlickr()},
+            { imageId: 1, link: faker.image.urlLoremFlickr() },
+            { imageId: 2, link: faker.image.urlLoremFlickr() },
+            { imageId: 3, link: faker.image.urlLoremFlickr() },
           ],
           createdAt: generateDate(),
         },
@@ -111,35 +111,35 @@ export const handlers = [
           postId: 1,
           User: User[0],
           content: `${1} Stop following me. I'm too famous.`,
-          Images: [{imageId: 1, link: faker.image.urlLoremFlickr()}],
+          Images: [{ imageId: 1, link: faker.image.urlLoremFlickr() }],
           createdAt: generateDate(),
         },
         {
           postId: 2,
           User: User[0],
           content: `${2} Stop following me. I'm too famous.`,
-          Images: [{imageId: 1, link: faker.image.urlLoremFlickr()}],
+          Images: [{ imageId: 1, link: faker.image.urlLoremFlickr() }],
           createdAt: generateDate(),
         },
         {
           postId: 3,
           User: User[0],
           content: `${3} Stop following me. I'm too famous.`,
-          Images: [{imageId: 1, link: faker.image.urlLoremFlickr()}],
+          Images: [{ imageId: 1, link: faker.image.urlLoremFlickr() }],
           createdAt: generateDate(),
         },
         {
           postId: 4,
           User: User[0],
           content: `${4} Stop following me. I'm too famous.`,
-          Images: [{imageId: 1, link: faker.image.urlLoremFlickr()}],
+          Images: [{ imageId: 1, link: faker.image.urlLoremFlickr() }],
           createdAt: generateDate(),
         },
         {
           postId: 5,
           User: User[0],
           content: `${5} Stop following me. I'm too famous.`,
-          Images: [{imageId: 1, link: faker.image.urlLoremFlickr()}],
+          Images: [{ imageId: 1, link: faker.image.urlLoremFlickr() }],
           createdAt: generateDate(),
         },
       ]
@@ -153,35 +153,35 @@ export const handlers = [
           postId: 1,
           User: User[0],
           content: `${1} 검색결과 ${tag}`,
-          Images: [{imageId: 1, link: faker.image.urlLoremFlickr()}],
+          Images: [{ imageId: 1, link: faker.image.urlLoremFlickr() }],
           createdAt: generateDate(),
         },
         {
           postId: 2,
           User: User[0],
           content: `${2} 검색결과 ${tag}`,
-          Images: [{imageId: 1, link: faker.image.urlLoremFlickr()}],
+          Images: [{ imageId: 1, link: faker.image.urlLoremFlickr() }],
           createdAt: generateDate(),
         },
         {
           postId: 3,
           User: User[0],
           content: `${3} 검색결과 ${tag}`,
-          Images: [{imageId: 1, link: faker.image.urlLoremFlickr()}],
+          Images: [{ imageId: 1, link: faker.image.urlLoremFlickr() }],
           createdAt: generateDate(),
         },
         {
           postId: 4,
           User: User[0],
           content: `${4} 검색결과 ${tag}`,
-          Images: [{imageId: 1, link: faker.image.urlLoremFlickr()}],
+          Images: [{ imageId: 1, link: faker.image.urlLoremFlickr() }],
           createdAt: generateDate(),
         },
         {
           postId: 5,
           User: User[0],
           content: `${5} 검색결과 ${tag}`,
-          Images: [{imageId: 1, link: faker.image.urlLoremFlickr()}],
+          Images: [{ imageId: 1, link: faker.image.urlLoremFlickr() }],
           createdAt: generateDate(),
         },
       ]
@@ -195,42 +195,42 @@ export const handlers = [
           postId: 1,
           User: User[0],
           content: `${1} ${userId}의 게시글`,
-          Images: [{imageId: 1, link: faker.image.urlLoremFlickr()}],
+          Images: [{ imageId: 1, link: faker.image.urlLoremFlickr() }],
           createdAt: generateDate(),
         },
         {
           postId: 2,
           User: User[0],
           content: `${2} ${userId}의 게시글`,
-          Images: [{imageId: 1, link: faker.image.urlLoremFlickr()}],
+          Images: [{ imageId: 1, link: faker.image.urlLoremFlickr() }],
           createdAt: generateDate(),
         },
         {
           postId: 3,
           User: User[0],
           content: `${3} ${userId}의 게시글`,
-          Images: [{imageId: 1, link: faker.image.urlLoremFlickr()}],
+          Images: [{ imageId: 1, link: faker.image.urlLoremFlickr() }],
           createdAt: generateDate(),
         },
         {
           postId: 4,
           User: User[0],
           content: `${4} ${userId}의 게시글`,
-          Images: [{imageId: 1, link: faker.image.urlLoremFlickr()}],
+          Images: [{ imageId: 1, link: faker.image.urlLoremFlickr() }],
           createdAt: generateDate(),
         },
         {
           postId: 5,
           User: User[0],
           content: `${5} ${userId}의 게시글`,
-          Images: [{imageId: 1, link: faker.image.urlLoremFlickr()}],
+          Images: [{ imageId: 1, link: faker.image.urlLoremFlickr() }],
           createdAt: generateDate(),
         },
       ]
     )
   }),
   http.get('/api/users/:userId', ({ request, params }): StrictResponse<any> => {
-    const {userId} = params;
+    const { userId } = params;
     const found = User.find((v) => v.id === userId);
     if (found) {
       return HttpResponse.json(
@@ -242,7 +242,7 @@ export const handlers = [
     })
   }),
   http.get('/api/posts/:postId', ({ request, params }): StrictResponse<any> => {
-    const {postId} = params;
+    const { postId } = params;
     if (parseInt(postId as string) > 10) {
       return HttpResponse.json({ message: 'no_such_post' }, {
         status: 404,
@@ -254,9 +254,9 @@ export const handlers = [
         User: User[0],
         content: `${1} 게시글 아이디 ${postId}의 내용`,
         Images: [
-          {imageId: 1, link: faker.image.urlLoremFlickr()},
-          {imageId: 2, link: faker.image.urlLoremFlickr()},
-          {imageId: 3, link: faker.image.urlLoremFlickr()},
+          { imageId: 1, link: faker.image.urlLoremFlickr() },
+          { imageId: 2, link: faker.image.urlLoremFlickr() },
+          { imageId: 3, link: faker.image.urlLoremFlickr() },
         ],
         createdAt: generateDate(),
       },
@@ -270,55 +270,55 @@ export const handlers = [
           postId: 1,
           User: User[0],
           content: `${1} 게시글 ${postId}의 답글`,
-          Images: [{imageId: 1, link: faker.image.urlLoremFlickr()}],
+          Images: [{ imageId: 1, link: faker.image.urlLoremFlickr() }],
           createdAt: generateDate(),
         },
         {
           postId: 2,
           User: User[0],
           content: `${2} 게시글 ${postId}의 답글`,
-          Images: [{imageId: 1, link: faker.image.urlLoremFlickr()}],
+          Images: [{ imageId: 1, link: faker.image.urlLoremFlickr() }],
           createdAt: generateDate(),
         },
         {
           postId: 3,
           User: User[0],
           content: `${3} 게시글 ${postId}의 답글`,
-          Images: [{imageId: 1, link: faker.image.urlLoremFlickr()}],
+          Images: [{ imageId: 1, link: faker.image.urlLoremFlickr() }],
           createdAt: generateDate(),
         },
         {
           postId: 4,
           User: User[0],
           content: `${4} 게시글 ${postId}의 답글`,
-          Images: [{imageId: 1, link: faker.image.urlLoremFlickr()}],
+          Images: [{ imageId: 1, link: faker.image.urlLoremFlickr() }],
           createdAt: generateDate(),
         },
         {
           postId: 5,
           User: User[0],
           content: `${5} 게시글 ${postId}의 답글`,
-          Images: [{imageId: 1, link: faker.image.urlLoremFlickr()}],
+          Images: [{ imageId: 1, link: faker.image.urlLoremFlickr() }],
           createdAt: generateDate(),
         },
       ]
     )
   }),
-  http.get('/api/followRecommends', ({ request}) => {
+  http.get('/api/followRecommends', ({ request }) => {
     return HttpResponse.json(User);
   }),
   http.get('/api/trends', ({ request }) => {
     return HttpResponse.json(
       [
-        {tagId: 1, title: '제로초', count: 1264},
-        {tagId: 2, title: '원초', count: 1264},
-        {tagId: 3, title: '투초', count: 1264},
-        {tagId: 4, title: '쓰리초', count: 1264},
-        {tagId: 5, title: '포초', count: 1264},
-        {tagId: 6, title: '파이브초', count: 1264},
-        {tagId: 7, title: '식스초', count: 1264},
-        {tagId: 8, title: '세븐초', count: 1264},
-        {tagId: 9, title: '나인초', count: 1264},
+        { tagId: 1, title: '제로초', count: 1264 },
+        { tagId: 2, title: '원초', count: 1264 },
+        { tagId: 3, title: '투초', count: 1264 },
+        { tagId: 4, title: '쓰리초', count: 1264 },
+        { tagId: 5, title: '포초', count: 1264 },
+        { tagId: 6, title: '파이브초', count: 1264 },
+        { tagId: 7, title: '식스초', count: 1264 },
+        { tagId: 8, title: '세븐초', count: 1264 },
+        { tagId: 9, title: '나인초', count: 1264 },
       ]
     )
   }),
