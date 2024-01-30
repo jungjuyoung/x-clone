@@ -13,15 +13,18 @@ import {
   ProfileIcon,
   ProfileFillIcon,
 } from "./ui";
+import { useSession } from "next-auth/react";
 
 export default function NavMenu() {
   const segment = useSelectedLayoutSegment();
-  // console.log(segment);
+  const { data: me } = useSession();
 
-  const me = {
-    // 임시로 내 정보 있는것처럼
-    id: "nadia",
-  };
+  console.log("NavMenu me: ", me);
+
+  // const me = {
+  //   // 임시로 내 정보 있는것처럼
+  //   id: "nadia",
+  // };
 
   const menu = [
     {
@@ -55,11 +58,15 @@ export default function NavMenu() {
           </Link>
         </li>
       ))}
-      {me?.id && (
+      {me?.user?.email && (
         <li>
-          <Link href={`/${me?.id}`}>
+          <Link href={`/${me.user?.email}`}>
             <div className={style.navPill}>
-              {segment === me.id ? <ProfileFillIcon /> : <ProfileIcon />}
+              {segment === me.user?.email ? (
+                <ProfileFillIcon />
+              ) : (
+                <ProfileIcon />
+              )}
             </div>
           </Link>
         </li>

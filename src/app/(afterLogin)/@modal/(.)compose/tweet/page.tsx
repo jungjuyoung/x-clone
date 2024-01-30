@@ -12,7 +12,6 @@ export default function TweetModal() {
   const onClickButton = () => {};
   const onChangeContent = () => {};
   const { data: me } = useSession();
-  console.log("modal TweetModal me: ", me);
 
   // const me = {
   //   // 임시로 내 정보 있는것처럼
@@ -40,7 +39,10 @@ export default function TweetModal() {
           <div className={style.modalBody}>
             <div className={style.postUserSection}>
               <div className={style.postUserImage}>
-                <img src={me.user.image} alt={me.user?.email} />
+                <img
+                  src={me?.user?.image as string}
+                  alt={me?.user?.email as string}
+                />
               </div>
             </div>
             <div className={style.inputDiv}>
