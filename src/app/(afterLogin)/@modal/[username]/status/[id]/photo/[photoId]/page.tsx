@@ -13,8 +13,8 @@ import {
   dehydrate,
 } from "@tanstack/react-query";
 
-import {getSinglePost} from "@/app/(afterLogin)/[username]/status/[id]/_lib/getSinglePost";
-import {getComments} from "@/app/(afterLogin)/[username]/status/[id]/_lib/getComments"
+import { getSinglePost } from "@/app/(afterLogin)/[username]/status/[id]/_lib/getSinglePost";
+import { getComments } from "@/app/(afterLogin)/[username]/status/[id]/_lib/getComments";
 
 type Props = {
   params: { id: string };
@@ -34,15 +34,15 @@ export default async function Default({ params }: Props) {
   return (
     <div className={style.container}>
       <HydrationBoundary state={dehydrateState}>
-      <PhotoModalCloseButton />
+        <PhotoModalCloseButton />
         <ImageZone id={id} />
-      <div className={style.commentZone}>
-        <SinglePost id={id} noImage/>
-        <CommentForm />
-         <div>
-          <Comments id={id} />
+        <div className={style.commentZone}>
+          <SinglePost id={id} noImage />
+          <CommentForm id={id} />
+          <div>
+            <Comments id={id} />
+          </div>
         </div>
-      </div>
       </HydrationBoundary>
     </div>
   );

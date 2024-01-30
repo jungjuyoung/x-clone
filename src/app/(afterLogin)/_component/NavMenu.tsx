@@ -19,8 +19,6 @@ export default function NavMenu() {
   const segment = useSelectedLayoutSegment();
   const { data: me } = useSession();
 
-  console.log("NavMenu me: ", me);
-
   // const me = {
   //   // 임시로 내 정보 있는것처럼
   //   id: "nadia",
