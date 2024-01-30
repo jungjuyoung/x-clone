@@ -2,6 +2,8 @@
 
 import style from "./modal.module.css";
 import { useRef, useState } from "react";
+import { useSession } from "next-auth/react";
+
 export default function TweetModal() {
   const [content, setContent] = useState();
   const imageRef = useRef<HTMLInputElement>(null);
@@ -9,13 +11,15 @@ export default function TweetModal() {
   const onClickClose = () => {};
   const onClickButton = () => {};
   const onChangeContent = () => {};
+  const { data: me } = useSession();
+  console.log("modal TweetModal me: ", me);
 
-  const me = {
-    // 임시로 내 정보 있는것처럼
-    id: "nadia",
-    nickname: "나디아",
-    image: "/5Udwvqim.jpg",
-  };
+  // const me = {
+  //   // 임시로 내 정보 있는것처럼
+  //   id: "nadia",
+  //   nickname: "나디아",
+  //   image: "/5Udwvqim.jpg",
+  // };
 
   return (
     <div className={style.modalBackground}>
@@ -36,7 +40,7 @@ export default function TweetModal() {
           <div className={style.modalBody}>
             <div className={style.postUserSection}>
               <div className={style.postUserImage}>
-                <img src={me.image} alt={me.id} />
+                <img src={me.user.image} alt={me.user?.email} />
               </div>
             </div>
             <div className={style.inputDiv}>
