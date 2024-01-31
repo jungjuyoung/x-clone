@@ -21,9 +21,10 @@ export default async function Page({ params }: Props) {
     queryKey: ["posts", id],
     queryFn: getSinglePost,
   });
-  await queryClient.prefetchQuery({
+  await queryClient.prefetchInfiniteQuery({
     queryKey: ["posts", id, "comments"],
     queryFn: getComments,
+    initialPageParam:0
   });
   const dehydratedState = dehydrate(queryClient);
 
