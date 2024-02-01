@@ -8,7 +8,7 @@ export const getUser: QueryFunction<User, [_1: string, _2: string]>
       next: {
         tags: ['users', username],
       },
-      cache: 'no-store',
+      // cache: 'no-store',
     });
     // The return value is *not* serialized
     // You can return Date, Map, Set, etc.

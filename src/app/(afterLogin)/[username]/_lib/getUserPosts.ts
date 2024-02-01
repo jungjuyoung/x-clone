@@ -8,7 +8,7 @@ export const getUserPosts: QueryFunction<Post[], [_1: string, _2: string, string
       next: {
         tags: ['posts', 'users', username],
       },
-      cache: 'no-store',
+      // cache: 'no-store',
     });
     // The return value is *not* serialized
     // You can return Date, Map, Set, etc.
