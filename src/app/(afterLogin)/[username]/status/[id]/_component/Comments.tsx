@@ -44,7 +44,7 @@ export default function Comments({ id }: Props) {
     }
   }, [inView, isFetching, hasNextPage, fetchNextPage]);
 
-  console.log("Comments data: ", data, "Comments post: ", post);
+  // console.log("Comments data: ", data, "Comments post: ", post);
 
   if (post) {
     return (
