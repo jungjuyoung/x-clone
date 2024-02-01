@@ -8,7 +8,7 @@ export const getSearchResult: QueryFunction<Post[], [_1: string, _2: string, sea
       next: {
         tags: ['posts', 'search', searchParams.q],
       },
-      cache: 'no-store',
+      // cache: 'no-store',
     });
     // The return value is *not* serialized
     // You can return Date, Map, Set, etc.
