@@ -6,7 +6,6 @@ import Post from "@/app/(afterLogin)/_component/Post";
 import { Post as IPost } from "@/model/Post";
 import styles from "@/app/(afterLogin)/home/home.module.css";
 import { useInView } from "react-intersection-observer";
-import { NextPage } from "next";
 
 export default function FollowingPosts() {
   const { data, isPending, isFetching, fetchNextPage, hasNextPage } =
