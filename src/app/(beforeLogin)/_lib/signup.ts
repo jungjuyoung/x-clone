@@ -1,9 +1,9 @@
 "use server";
 
-import { redirect } from "next/navigation";
-import { signIn } from "@/auth";
+import {redirect} from "next/navigation";
+import {signIn} from "@/auth";
 
-export default async function onSubmit(prevState: any, formData: FormData) {
+const onSubmit = async (prevState: any, formData: FormData) => {
   if (!formData.get('id') || !(formData.get('id') as string)?.trim()) {
     return { message: 'no_id' };
   }
@@ -16,8 +16,7 @@ export default async function onSubmit(prevState: any, formData: FormData) {
   if (!formData.get('image')) {
     return { message: 'no_image' };
   }
-  formData.set('nickname',formData.get('name') as string);
-  
+  formData.set('nickname', formData.get('name') as string);
   let shouldRedirect = false;
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users`, {
@@ -29,8 +28,8 @@ export default async function onSubmit(prevState: any, formData: FormData) {
     if (response.status === 403) {
       return { message: 'user_exists' };
     }
-    console.log('response: ', await response.json())
     shouldRedirect = true;
+    console.log('responst: ',await response.json(),'shouldRedirect: ', shouldRedirect)
     await signIn("credentials", {
       username: formData.get('id'),
       password: formData.get('password'),
@@ -38,10 +37,12 @@ export default async function onSubmit(prevState: any, formData: FormData) {
     })
   } catch (err) {
     console.error(err);
-    return;
+    return { message: null };
   }
-
+console.log('shouldRedirect: ', shouldRedirect)
   if (shouldRedirect) {
     redirect('/home'); // try/catch문 안에서 X
   }
+  return { message: null };
 }
+export default onSubmit

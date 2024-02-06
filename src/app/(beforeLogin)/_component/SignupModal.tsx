@@ -101,7 +101,7 @@ export default function SignupModal() {
               >
                 {pending ? "처리중..." : "가입하기"}
               </button>
-              <div className={style.error}>{showMessage(state?.message)}</div>
+              <div className={style.error}>{showMessage(state?.message!)}</div>
             </div>
           </form>
         </div>
