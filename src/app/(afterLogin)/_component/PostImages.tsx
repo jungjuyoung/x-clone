@@ -17,7 +17,8 @@ type Props = {
 };
 
 export default function PostImages({ post }: Props) {
-  if (!post.Images || !post.Images.length) return null;
+  if (!post.Images) return null;
+  if (!post.Images.length) return null;
   if (post.Images.length === 1) {
     return (
       <Link
