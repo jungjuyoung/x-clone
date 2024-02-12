@@ -26,7 +26,7 @@
   line-height: 20px;
 }
 .postReposted svg {
-  fill: rgb(83, 100, 113);
+  fill: rgb(83, 100, 113)
 }
 
 .postUserSection {
@@ -63,8 +63,7 @@
 .postUserName {
   font-weight: bold;
 }
-.postUserNick,
-.postDate {
+.postUserNick, .postDate {
   color: rgb(83, 100, 113);
 }
 .postDate:hover {
@@ -72,6 +71,7 @@
 }
 
 .postImageSection {
+
 }
 
 .postBody {
@@ -94,7 +94,7 @@
   width: 100%;
   border-radius: 16px;
 }
-.postImageSection1 {
+.postImageSection.oneImage {
   max-height: 510px;
   background-repeat: no-repeat;
 }
@@ -103,20 +103,20 @@
   max-height: 510px;
   width: 100%;
 }
-.postImageSection2 {
+.postImageSection.twoImage {
   height: 272px;
   display: flex;
   flex-direction: row;
   gap: 2px;
 }
-.postImageSection2 a {
+.postImageSection.twoImage a {
   flex: 1;
 }
-.postImageSection2 a:first-child {
+.postImageSection.twoImage a:first-child {
   border-top-left-radius: 16px;
   border-bottom-left-radius: 16px;
 }
-.postImageSection2 a:last-child {
+.postImageSection.twoImage a:last-child {
   border-top-right-radius: 16px;
   border-bottom-right-radius: 16px;
 }
@@ -126,46 +126,45 @@
   flex-direction: row;
   gap: 2px;
 }
-.postImageSection3 > a,
-.postImageSection3 > div {
-  flex: 1;
+.postImageSection.threeImage > a, .postImageSection.threeImage > div {
+  flex: 1
 }
-.postImageSection3 > div {
+.postImageSection.threeImage > div {
   display: flex;
   flex-direction: column;
   gap: 2px;
 }
-.postImageSection3 > div > a {
+.postImageSection.threeImage > div > a {
   flex: 1;
 }
-.postImageSection3 > a:first-child {
+.postImageSection.threeImage > a:first-child {
   border-top-left-radius: 16px;
   border-bottom-left-radius: 16px;
 }
-.postImageSection3 > div > a:first-child {
+.postImageSection.threeImage > div > a:first-child {
   border-top-right-radius: 16px;
 }
-.postImageSection3 > div > a:last-child {
+.postImageSection.threeImage > div > a:last-child {
   border-bottom-right-radius: 16px;
 }
 
-.postImageSection4 {
+.postImageSection.fourImage {
   height: 272px;
   display: grid;
   grid-template-rows: 1fr 1fr;
   grid-template-columns: 1fr 1fr;
   gap: 2px;
 }
-.postImageSection4 > a:nth-child(1) {
+.postImageSection.fourImage > a:nth-child(1) {
   border-top-left-radius: 16px;
 }
-.postImageSection4 > a:nth-child(2) {
+.postImageSection.fourImage > a:nth-child(2) {
   border-top-right-radius: 16px;
 }
-.postImageSection4 > a:nth-child(3) {
+.postImageSection.fourImage > a:nth-child(3) {
   border-bottom-left-radius: 16px;
 }
-.postImageSection4 > a:nth-child(4) {
+.postImageSection.fourImage > a:nth-child(4) {
   border-bottom-right-radius: 16px;
 }
 
@@ -181,17 +180,13 @@
   fill: rgb(83, 100, 113);
 }
 
-.commentButton,
-.repostButton,
-.heartButton {
+.commentButton, .repostButton, .heartButton {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
 
-.commentButton button,
-.repostButton button,
-.heartButton button {
+.commentButton button, .repostButton button, .heartButton button {
   background: #ffffff;
   border: none;
   outline: none;
@@ -219,28 +214,23 @@
   background-color: rgba(29, 155, 240, 0.1);
 }
 
-.commentButton.white svg,
-.commentButton.white .count {
+.commentButton.white svg, .commentButton.white .count {
   fill: white;
   color: white;
 }
-.repostButton.white svg,
-.repostButton.white .count {
+.repostButton.white svg, .repostButton.white .count {
   fill: white;
   color: white;
 }
-.heartButton.white svg,
-.heartButton.white .count {
+.heartButton.white svg, .heartButton.white .count {
   fill: white;
   color: white;
 }
-.commentButton.commented svg,
-.commentButton:hover svg {
-  fill: rgb(29, 155, 240);
+.commentButton.commented svg, .commentButton:hover svg {
+  fill: rgb(29, 155, 240)
 }
 
-.commentButton.commented .count,
-.commentButton:hover .count {
+.commentButton.commented .count, .commentButton:hover .count {
   color: rgb(29, 155, 240);
 }
 
@@ -252,30 +242,26 @@
   background-color: rgba(0, 186, 124, 0.1);
 }
 
-.repostButton.reposted svg,
-.repostButton:hover svg {
-  fill: rgb(11, 175, 123);
+.repostButton.reposted svg, .repostButton:hover svg {
+  fill: rgb(11, 175, 123)
 }
 
-.repostButton.reposted .count,
-.repostButton:hover .count {
-  color: rgb(11, 175, 123);
+.repostButton.reposted .count, .repostButton:hover .count {
+  color: rgb(11, 175, 123)
 }
 
 .heartButton button {
-  background-color: rgba(249, 24, 128, 0.01);
+  background-color: rgba(249, 24, 128, 0.01)
 }
 
 .heartButton:hover button {
-  background-color: rgba(249, 24, 128, 0.1);
+  background-color: rgba(249, 24, 128, 0.1)
 }
 
-.heartButton.liked svg,
-.heartButton:hover svg {
+.heartButton.liked svg, .heartButton:hover svg {
   fill: rgb(228, 34, 126);
 }
 
-.heartButton.liked .count,
-.heartButton:hover .count {
+.heartButton.liked .count, .heartButton:hover .count {
   color: rgb(228, 34, 126);
 }
