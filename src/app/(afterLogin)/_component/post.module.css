@@ -94,7 +94,7 @@
   width: 100%;
   border-radius: 16px;
 }
-.postImageSection.oneImage {
+.postImageSection1 {
   max-height: 510px;
   background-repeat: no-repeat;
 }
@@ -103,20 +103,20 @@
   max-height: 510px;
   width: 100%;
 }
-.postImageSection.twoImage {
+.postImageSection2 {
   height: 272px;
   display: flex;
   flex-direction: row;
   gap: 2px;
 }
-.postImageSection.twoImage a {
+.postImageSection2 a {
   flex: 1;
 }
-.postImageSection.twoImage a:first-child {
+.postImageSection2 a:first-child {
   border-top-left-radius: 16px;
   border-bottom-left-radius: 16px;
 }
-.postImageSection.twoImage a:last-child {
+.postImageSection2 a:last-child {
   border-top-right-radius: 16px;
   border-bottom-right-radius: 16px;
 }
@@ -126,46 +126,46 @@
   flex-direction: row;
   gap: 2px;
 }
-.postImageSection.threeImage > a,
-.postImageSection.threeImage > div {
+.postImageSection3 > a,
+.postImageSection3 > div {
   flex: 1;
 }
-.postImageSection.threeImage > div {
+.postImageSection3 > div {
   display: flex;
   flex-direction: column;
   gap: 2px;
 }
-.postImageSection.threeImage > div > a {
+.postImageSection3 > div > a {
   flex: 1;
 }
-.postImageSection.threeImage > a:first-child {
+.postImageSection3 > a:first-child {
   border-top-left-radius: 16px;
   border-bottom-left-radius: 16px;
 }
-.postImageSection.threeImage > div > a:first-child {
+.postImageSection3 > div > a:first-child {
   border-top-right-radius: 16px;
 }
-.postImageSection.threeImage > div > a:last-child {
+.postImageSection3 > div > a:last-child {
   border-bottom-right-radius: 16px;
 }
 
-.postImageSection.fourImage {
+.postImageSection4 {
   height: 272px;
   display: grid;
   grid-template-rows: 1fr 1fr;
   grid-template-columns: 1fr 1fr;
   gap: 2px;
 }
-.postImageSection.fourImage > a:nth-child(1) {
+.postImageSection4 > a:nth-child(1) {
   border-top-left-radius: 16px;
 }
-.postImageSection.fourImage > a:nth-child(2) {
+.postImageSection4 > a:nth-child(2) {
   border-top-right-radius: 16px;
 }
-.postImageSection.fourImage > a:nth-child(3) {
+.postImageSection4 > a:nth-child(3) {
   border-bottom-left-radius: 16px;
 }
-.postImageSection.fourImage > a:nth-child(4) {
+.postImageSection4 > a:nth-child(4) {
   border-bottom-right-radius: 16px;
 }
 
