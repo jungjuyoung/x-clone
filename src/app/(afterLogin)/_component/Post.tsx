@@ -1,5 +1,6 @@
 import style from "./post.module.css";
 import Link from "next/link";
+import Image from "next/image";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/ko";
@@ -24,7 +25,8 @@ export default function Post({ noImage, post }: Props) {
       <div className={style.postWrapper}>
         <div className={style.postUserSection}>
           <Link href={`/${target.User.id}`} className={style.postUserImage}>
-            <img src={target.User.image} alt={target.User.nickname} />
+            <Image src={target.User.image} alt={target.User.nickname} width={300} height={400}/>
+            {/*<img src={target.User.image} alt={target.User.nickname} />*/} 
             <div className={style.postShade} />
           </Link>
         </div>
