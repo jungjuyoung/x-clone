@@ -198,7 +198,7 @@ export const handlers = [
           postId: 1,
           User: User[0],
           content: `${1} ${userId}의 게시글`,
-          Images: [{ imageId: 1, link: faker.image.urlLoremFlickr() }],
+          Images: [{ imageId: 1, link: faker.image.urlLoremFlickr() },{ imageId: 2, link: faker.image.urlLoremFlickr() },{ imageId: 3, link: faker.image.urlLoremFlickr() }],
           createdAt: generateDate(),
         },
         {
