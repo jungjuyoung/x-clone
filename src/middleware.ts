@@ -8,7 +8,7 @@ export async function middleware() {
   }
 }
 
-// See "Matching Paths" below to learn more
+// The middleware above will only work for routers that are matched below "Matched Paths".
 export const config = {
   matcher: ['/compose/tweet', '/home', '/explore', '/messages', '/search'],
 }
