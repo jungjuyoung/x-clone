@@ -7,7 +7,7 @@ import { Session } from "@auth/core/types";
 import Image from "next/image";
 
 type Props={
-  me: Session
+  me: Session | null
 }
 export default function LogoutButton({me}:Props) {
   const router = useRouter();

@@ -3,11 +3,15 @@
 import { ChangeEventHandler, FormEventHandler, useRef, useState } from "react";
 import style from "./postForm.module.css";
 import { useSession } from "next-auth/react";
+import { Session } from "@auth/core/types";
 
-export default function PostForm() {
+type Props={
+  me: Session | null
+}
+export default function PostForm({me}: Props) {
   const imageRef = useRef<HTMLInputElement>(null);
   const [content, setContent] = useState("");
-  const { data: me } = useSession();
+  // const { data: me } = useSession();
 
   // const me = {
   //   // 임시로 내 정보 있는것처럼
