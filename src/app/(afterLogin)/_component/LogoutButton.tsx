@@ -3,10 +3,15 @@
 import { signOut, useSession } from "next-auth/react";
 import style from "./logoutButton.module.css";
 import { useRouter } from "next/navigation";
+import { Session } from "@auth/core/types";
+import Image from "next/image";
 
-export default function LogoutButton() {
+type Props={
+  me: Session
+}
+export default function LogoutButton({me}:Props) {
   const router = useRouter();
-  const { data: me } = useSession();
+  // const { data: me } = useSession();
   // const me = {
   //   // 임시로 내 정보 있는것처럼
   //   id: "nadia",
@@ -15,7 +20,7 @@ export default function LogoutButton() {
   // };
 
   if (!me?.user) return null;
-  // console.log("LogoutButton me: ", me);
+  console.log("LogoutButton me: ", me);
 
   const onLogout = () => {
     console.log("LogoutButton call signOut at onLogout function");
@@ -29,7 +34,7 @@ export default function LogoutButton() {
   return (
     <button className={style.logOutButton} onClick={onLogout}>
       <div className={style.logOutUserImage}>
-        <img src={me.user?.image as string} alt={me.user?.email as string} />
+        <Image src={me.user?.image as string} alt={me.user?.email as string} width={40} height={40}/>
       </div>
       <div className={style.logOutUserName}>
         <div>{me.user?.name}</div>
