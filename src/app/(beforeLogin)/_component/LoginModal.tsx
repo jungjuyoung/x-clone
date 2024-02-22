@@ -16,14 +16,14 @@ export default function LoginModal() {
     setMessage("");
 
     try {
-      console.log('here')
+      // console.log('here')
       const response = await signIn("credentials", {
         username: id,
         password,
         redirect: false,
       });
-      console.log('here2 response: ',response)
-      if(response?.error === "CredentialsSignin"){
+      // console.log('here2 response: ',response)
+      if(!response?.url){
         setMessage("아이디와 비밀번호가 일치하지 않습니다.");
       } else {
         router.replace("/home");
