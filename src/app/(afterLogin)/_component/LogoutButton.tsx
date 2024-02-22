@@ -1,6 +1,6 @@
 "use client";
 
-import { signOut, useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 import style from "./logoutButton.module.css";
 import { useRouter } from "next/navigation";
 import { Session } from "@auth/core/types";
@@ -20,7 +20,7 @@ export default function LogoutButton({me}:Props) {
   // };
 
   if (!me?.user) return null;
-  console.log("LogoutButton me: ", me);
+  // console.log("LogoutButton me: ", me);
 
   const onLogout = () => {
     console.log("LogoutButton call signOut at onLogout function");
