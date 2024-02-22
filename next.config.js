@@ -10,7 +10,7 @@ const nextConfig = {
         return [
           {
             source: '/upload/:slug',
-            destination: `${process.env.AUTH_URL}/upload/:slug`
+            destination: `${process.env.NEXT_PUBLIC_BASE_URL}/upload/:slug`
           },
         ]
       },

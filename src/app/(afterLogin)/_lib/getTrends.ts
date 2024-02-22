@@ -1,6 +1,6 @@
 type Props = { pageParam?: number };
 export async function getTrends({ pageParam }: Props) {
-  const res = await fetch(`${process.env.AUTH_URL}/api/trends`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/trends`, {
     next: {
       tags: ['trends'],
     },
