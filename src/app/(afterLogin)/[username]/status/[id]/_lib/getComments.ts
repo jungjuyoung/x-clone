@@ -9,7 +9,7 @@ type Props = {
 export const getComments: QueryFunction<Post[], [_1: string, _2: string, _3: string], number>
   = async ({ queryKey, pageParam }: Props) => {
     const [_1, id] = queryKey;
-    const res = await fetch(`http://localhost:9090/api/posts/${id}/comments?cursor=${pageParam}`, {
+    const res = await fetch(`${process.env.AUTH_URL}/api/posts/${id}/comments?cursor=${pageParam}`, {
       next: {
         tags: ['posts', id, 'comments'],
       },

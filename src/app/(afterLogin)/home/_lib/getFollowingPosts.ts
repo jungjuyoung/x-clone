@@ -1,6 +1,6 @@
 type Props = { pageParam?: number };
 export async function getFollowingPosts({ pageParam }: Props) {
-  const res = await fetch(`http://localhost:9090/api/followingPosts?cursor=${pageParam}`, {
+  const res = await fetch(`${process.env.AUTH_URL}/api/followingPosts?cursor=${pageParam}`, {
     next: {
       tags: ['posts', 'followings'],
     },
