@@ -4,6 +4,7 @@ import { ChangeEventHandler, FormEventHandler, useRef, useState } from "react";
 import style from "./postForm.module.css";
 import { useSession } from "next-auth/react";
 import { Session } from "@auth/core/types";
+import Image from 'next/image';
 
 type Props={
   me: Session | null
@@ -36,10 +37,7 @@ export default function PostForm({me}: Props) {
     <form className={style.postForm} onSubmit={onSubmit}>
       <div className={style.postUserSection}>
         <div className={style.postUserImage}>
-          <img
-            src={me?.user?.image as string}
-            alt={me?.user?.email as string}
-          />
+          <Image src={me?.user?.image as string} alt={me?.user?.email as string} width={40} height={40}/>
         </div>
       </div>
       <div className={style.postInputSection}>
