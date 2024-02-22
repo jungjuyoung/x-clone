@@ -22,6 +22,9 @@ const delay = (ms: number) => new Promise((res) => {
 export const handlers = [
   http.post('/api/login', () => {
     console.log('로그인');
+    // return HttpResponse.json({ message: 'no_such_user' }, {
+    //   status: 404,
+    // })
     return HttpResponse.json(User[1], {
       headers: {
         'Set-Cookie': 'connect.sid=msw-cookie;HttpOnly;Path=/'
