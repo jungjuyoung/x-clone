@@ -10,7 +10,7 @@ type Props={
   me: Session | null
 }
 export default function PostForm({me}: Props) {
-  const [preview, setPreview] = useState<Array<string | null>>([])
+  const [preview, setPreview] = useState<Array<{dataUrl:string , file: File} | null>>([])
   const imageRef = useRef<HTMLInputElement>(null);
   const [content, setContent] = useState("");
   // const { data: me } = useSession();
@@ -28,6 +28,16 @@ export default function PostForm({me}: Props) {
 
   const onSubmit: FormEventHandler = (e) => {
     e.preventDefault();
+    const formData = new FormData()
+    formData.append('content', content)
+    preview.map(p => {
+      p && formData.append('images',p.file)
+    })
+    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/posts`,{
+      method:'post',
+      credentials:'include',
+      body:formData
+    })
   };
 
   const onClickButton = () => {
@@ -51,7 +61,10 @@ export default function PostForm({me}: Props) {
       reader.onloadend = () => {
         setPreview((prevPreview) => {
           const prev = [...prevPreview];
-          prev[index]=reader.result as string;
+          prev[index]={
+            dataUrl: reader.result as string,
+            file
+          }
           return prev
         })
       }
@@ -75,7 +88,7 @@ export default function PostForm({me}: Props) {
         />
         <div className={style.preview}>
           {preview.map((v, i) => (
-            v && <div key={i} onClick={onRemoveImage(i)}><Image src={v} alt='preview' width={100} height={100} objectFit={'contain'}/></div>
+            v && <div key={i} onClick={onRemoveImage(i)}><Image src={v.dataUrl} alt='preview' width={100} height={100} objectFit={'contain'}/></div>
           ))}
         </div>
         <div className={style.postButtonSection}>
