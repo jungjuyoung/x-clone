@@ -3,7 +3,6 @@
 import TextareaAutosize from 'react-textarea-autosize';
 import { ChangeEventHandler, FormEventHandler, useRef, useState } from "react";
 import style from "./postForm.module.css";
-import { useSession } from "next-auth/react";
 import { Session } from "@auth/core/types";
 import Image from 'next/image';
 
@@ -11,6 +10,7 @@ type Props={
   me: Session | null
 }
 export default function PostForm({me}: Props) {
+  const [preview, setPreview] = useState<Array<string | null>>([])
   const imageRef = useRef<HTMLInputElement>(null);
   const [content, setContent] = useState("");
   // const { data: me } = useSession();
@@ -34,6 +34,32 @@ export default function PostForm({me}: Props) {
     imageRef.current?.click();
   };
 
+  
+  const onRemoveImage = (index: number) => () => {
+    setPreview((prevPreview) => {
+      const prev = [...prevPreview];
+      prev[index] = null;
+      return prev;
+    })
+  };
+  
+  const onUpload:ChangeEventHandler<HTMLInputElement> = (e) => {
+    e.preventDefault()
+    console.log('[PostForm] onUpload e.target.files: ',e.target.files)
+    e.target.files && Array.from(e.target.files).forEach((file, index) => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreview((prevPreview) => {
+          const prev = [...prevPreview];
+          prev[index]=reader.result as string;
+          return prev
+        })
+      }
+      reader.readAsDataURL(file)
+
+    })
+  }
+
   return (
     <form className={style.postForm} onSubmit={onSubmit}>
       <div className={style.postUserSection}>
@@ -47,6 +73,11 @@ export default function PostForm({me}: Props) {
           onChange={onChange}
           placeholder="무슨 일이 일어나고 있나요?"
         />
+        <div className={style.preview}>
+          {preview.map((v, i) => (
+            v && <div key={i} onClick={onRemoveImage(i)}><Image src={v} alt='preview' width={100} height={100} objectFit={'contain'}/></div>
+          ))}
+        </div>
         <div className={style.postButtonSection}>
           <div className={style.footerButtons}>
             <div className={style.footerButtonLeft}>
@@ -56,6 +87,7 @@ export default function PostForm({me}: Props) {
                 multiple
                 hidden
                 ref={imageRef}
+                onChange={onUpload}
               />
               <button
                 className={style.uploadButton}

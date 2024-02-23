@@ -83,3 +83,10 @@
 .actionButton:hover {
   background-color: rgb(26, 140, 216);
 }
+
+.preview{
+  display: flex;
+}
+.preview > div{
+flex:1
+}
