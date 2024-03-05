@@ -50,7 +50,7 @@ export const handlers = [
       }
     })
   }),
-  http.get('/api/postRecommends', async ({ request }) => {
+  http.get('/api/posts/recommends', async ({ request }) => {
     await delay(3000);
     const url = new URL(request.url)
     const cursor = parseInt(url.searchParams.get('cursor') as string) || 0
@@ -106,7 +106,7 @@ export const handlers = [
       ]
     )
   }),
-  http.get('/api/followingPosts', async ({ request }) => {
+  http.get('/api/posts/followings', async ({ request }) => {
     await delay(3000);
     const url = new URL(request.url)
     const cursor = parseInt(url.searchParams.get('cursor') as string) || 0
