@@ -1,10 +1,13 @@
 "use client";
 
+import { FormEvent } from 'react';
 import TextareaAutosize from 'react-textarea-autosize';
 import { ChangeEventHandler, FormEventHandler, useRef, useState } from "react";
 import style from "./postForm.module.css";
-import { Session } from "@auth/core/types";
 import Image from 'next/image';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { Post } from '@/model/Post';
+import { Session } from 'next-auth';
 
 type Props={
   me: Session | null
@@ -13,33 +16,55 @@ export default function PostForm({me}: Props) {
   const [preview, setPreview] = useState<Array<{dataUrl:string , file: File} | null>>([])
   const imageRef = useRef<HTMLInputElement>(null);
   const [content, setContent] = useState("");
-  // const { data: me } = useSession();
-
-  // const me = {
-  //   // 임시로 내 정보 있는것처럼
-  //   id: "nadia",
-  //   nickname: "나디아",
-  //   image: "/5Udwvqim.jpg",
-  // };
+  const queryClient = useQueryClient()
+  const mutation = useMutation({
+    mutationFn: async (e: FormEvent) => {
+      e.preventDefault();
+      const formData = new FormData()
+      formData.append('content', content)
+      preview.forEach(p => {
+        p && formData.append('images', p.file)
+      })
+      console.log('[PostForm] formData: ', formData)
+      return await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/posts`,{
+        method:'post',
+        credentials:'include',
+        body:formData,
+      })
+    },
+    async onSuccess(data, variables){
+      const newPost = await data.json()
+      setContent('')
+      setPreview([])
+      queryClient.getQueryData(['posts', 'recommends']) && queryClient.setQueryData(['posts', 'recommends'], (prevData: { pages: Post[][] }) => {
+        const shallow = {
+          ...prevData,
+          pages: [...prevData.pages],
+        };
+        shallow.pages[0] = [...shallow.pages[0]];
+        shallow.pages[0].unshift(newPost);
+        return shallow;
+      });
+      queryClient.getQueryData(['posts', 'followings']) && queryClient.setQueryData(['posts', 'followings'], (prevData: { pages: Post[][] }) => {
+        const shallow = {
+          ...prevData,
+          pages: [...prevData.pages],
+        };
+        shallow.pages[0] = [...shallow.pages[0]];
+        shallow.pages[0].unshift(newPost);
+        return shallow;
+      })
+    },
+    onError(err){
+      console.error(err)
+      alert('업로드 중 에러가 발생했습니다.')
+    }
+  })
 
   const onChange: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
     setContent(e.target.value);
   };
-
-  const onSubmit: FormEventHandler = (e) => {
-    e.preventDefault();
-    const formData = new FormData()
-    formData.append('content', content)
-    preview.map(p => {
-      p && formData.append('images',p.file)
-    })
-    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/posts`,{
-      method:'post',
-      credentials:'include',
-      body:formData
-    })
-  };
-
+  
   const onClickButton = () => {
     imageRef.current?.click();
   };
@@ -55,7 +80,7 @@ export default function PostForm({me}: Props) {
   
   const onUpload:ChangeEventHandler<HTMLInputElement> = (e) => {
     e.preventDefault()
-    console.log('[PostForm] onUpload e.target.files: ',e.target.files)
+    // console.log('[PostForm] onUpload e.target.files: ',e.target.files)
     e.target.files && Array.from(e.target.files).forEach((file, index) => {
       const reader = new FileReader();
       reader.onloadend = () => {
@@ -74,7 +99,7 @@ export default function PostForm({me}: Props) {
   }
 
   return (
-    <form className={style.postForm} onSubmit={onSubmit}>
+    <form className={style.postForm} onSubmit={mutation.mutate}>
       <div className={style.postUserSection}>
         <div className={style.postUserImage}>
           <Image src={me?.user?.image as string} alt={me?.user?.email as string} width={40} height={40}/>
