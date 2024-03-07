@@ -1,9 +1,10 @@
 type Props = { pageParam?: number };
 export async function getTrends({ pageParam }: Props) {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/trends`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/hashtags/trends`, {
     next: {
       tags: ['trends'],
     },
+    credentials:'include'
   });
   // The return value is *not* serialized
   // You can return Date, Map, Set, etc.
