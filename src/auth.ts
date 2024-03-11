@@ -29,7 +29,7 @@ export const {
         let setCookie= authResponse.headers.get('Set-Cookie');
         console.log('[auth] setCookie: ', setCookie)
         if(setCookie){
-          const parsed = cookie.parse(setCookie)
+          const parsed = cookie.parse(setCookie) // 객체로 변경
           cookies().set('connect.sid', parsed['connect.sid'], parsed); // 브라우저에 쿠키를 심어주는 것
         }
 
