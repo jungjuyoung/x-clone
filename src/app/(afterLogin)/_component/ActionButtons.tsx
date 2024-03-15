@@ -1,4 +1,5 @@
 "use client";
+import { MouseEventHandler } from 'react';
 import style from "./post.module.css";
 import cx from "classnames";
 
@@ -12,7 +13,10 @@ export default function ActionButtons({ white }: Props) {
 
   const onClickComment = () => {};
   const onClickRepost = () => {};
-  const onClickHeart = () => {};
+  const onClickHeart:MouseEventHandler = (e) => {
+    e.stopPropagation()
+    console.log(e.target)
+  };
 
   return (
     <div className={style.actionButtons}>
