@@ -17,7 +17,7 @@ export default function PostForm({me}: Props) {
   const imageRef = useRef<HTMLInputElement>(null);
   const [content, setContent] = useState("");
   const queryClient = useQueryClient()
-  const mutation = useMutation({
+  const {mutate} = useMutation({
     mutationFn: async (e: FormEvent) => {
       e.preventDefault();
       const formData = new FormData()
@@ -99,7 +99,7 @@ export default function PostForm({me}: Props) {
   }
 
   return (
-    <form className={style.postForm} onSubmit={mutation.mutate}>
+    <form className={style.postForm} onSubmit={mutate}>
       <div className={style.postUserSection}>
         <div className={style.postUserImage}>
           <Image src={me?.user?.image as string} alt={me?.user?.email as string} width={40} height={40}/>
