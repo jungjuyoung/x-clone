@@ -1,11 +1,23 @@
 import { PostImage } from './PostImage';
 import { User } from './User';
 
+export interface UserID{
+  userId: string
+}
+
 export interface Post {
   noImage?: boolean;
   postId: number;
   content: string;
   createdAt: Date;
   User: User;
-  Images: PostImage[]
+  Images: PostImage[];
+  Hearts: UserID[];
+  Reposts: UserID[];
+  Comments: UserID[];
+  _count:{
+    Hearts: number,
+    Reposts: number,
+    Comments: number
+  }
 }
