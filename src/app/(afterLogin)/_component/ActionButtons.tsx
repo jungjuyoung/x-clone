@@ -26,9 +26,11 @@ export default function ActionButtons({ white, post }: Props) {
       })
     },
     onMutate() {
+      // 즉각적으로 하트 누른것을 구현해주면 됨.
       const queryCache = queryClient.getQueryCache()
       const queryKeys = queryCache.getAll().map(cache => cache.queryKey)
       console.log('queryKeys', queryKeys);
+
       queryKeys.forEach((queryKey) => {
         if (queryKey[0] === 'posts') {
           console.log(queryKey[0]);
@@ -71,6 +73,7 @@ export default function ActionButtons({ white, post }: Props) {
       })
     },
     onError() {
+      // 서버에서 에러가 왔을때 onMutate에서 즉각적으로 하트 누른것 처리한것 롤백.
       const queryCache = queryClient.getQueryCache()
       const queryKeys = queryCache.getAll().map(cache => cache.queryKey)
       console.log('queryKeys', queryKeys);
