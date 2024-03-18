@@ -17,7 +17,7 @@ export default function FollowRecommend({ user }: Props) {
   const queryClient = useQueryClient();
   const {mutate: follow} = useMutation({
     mutationFn: (userId: string) => {
-      console.log('follow', userId);
+      console.log('follow mutationFn: ', userId);
       return fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${userId}/follow`, {
         credentials: 'include',
         method: 'post',
@@ -27,7 +27,6 @@ export default function FollowRecommend({ user }: Props) {
       const value: User[] | undefined = queryClient.getQueryData(["users", "followRecommends"]);
       if (value) {
         const index = value.findIndex((v) => v.id === userId);
-        console.log(value, userId, index);
         const shallow = [...value];
         shallow[index] = {
           ...shallow[index],
@@ -56,7 +55,7 @@ export default function FollowRecommend({ user }: Props) {
       const value: User[] | undefined = queryClient.getQueryData(["users", "followRecommends"]);
       if (value) {
         const index = value.findIndex((v) => v.id === userId);
-        console.log(value, userId, index);
+        console.log('follow onError value: ',value, 'userId: ',userId,'index: ', index);
         const shallow = [...value];
         shallow[index] = {
           ...shallow[index],
@@ -95,7 +94,6 @@ export default function FollowRecommend({ user }: Props) {
       const value: User[] | undefined = queryClient.getQueryData(["users", "followRecommends"]);
       if (value) {
         const index = value.findIndex((v) => v.id === userId);
-        console.log(value, userId, index);
         const shallow = [...value];
         shallow[index] = {
           ...shallow[index],
@@ -124,7 +122,6 @@ export default function FollowRecommend({ user }: Props) {
       const value: User[] | undefined = queryClient.getQueryData(["users", "followRecommends"]);
       if (value) {
         const index = value.findIndex((v) => v.id === userId);
-        console.log(value, userId, index);
         const shallow = [...value];
         shallow[index] = {
           ...shallow[index],
@@ -154,7 +151,6 @@ export default function FollowRecommend({ user }: Props) {
   const onFollow: MouseEventHandler<HTMLButtonElement> = (e) => {
     e.stopPropagation();
     e.preventDefault();
-    console.log('follow', followed, user.id);
     if (followed) {
       unfollow(user.id);
     } else {
