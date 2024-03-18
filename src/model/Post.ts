@@ -1,7 +1,7 @@
 import { PostImage } from './PostImage';
 import { User } from './User';
 
-export interface UserID{
+interface UserID{
   userId: string
 }
 

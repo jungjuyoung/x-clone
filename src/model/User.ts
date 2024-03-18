@@ -1,5 +1,15 @@
+interface UserID{
+  id: string | null | undefined;
+  userId: string
+}
+
 export interface User {
   id: string;
   nickname: string;
-  image: string
+  image: string;
+  Followers: UserID[];
+  _count:{
+    Followers: number,
+    Followings: number
+  }
 }
