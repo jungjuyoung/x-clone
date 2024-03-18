@@ -36,12 +36,13 @@ export default function UserInfo({username, session }: Props) {
         if (index > -1) {
           console.log(value, userId, index);
           const shallow = [...value];
+          console.log('shallow: ',shallow)
           shallow[index] = {
             ...shallow[index],
             Followers: [{ id: session?.user?.email as string }],
             _count: {
               ...shallow[index]._count,
-              Followers: shallow[index]._count?.Followers + 1,
+              Followers: (shallow[index]._count?.Followers || 0) + 1,
             }
           }
           queryClient.setQueryData(["users", "followRecommends"], shallow)
@@ -54,7 +55,7 @@ export default function UserInfo({username, session }: Props) {
           Followers: [{ id: session?.user?.email as string }],
           _count: {
             ...value2._count,
-            Followers: value2._count?.Followers + 1,
+            Followers: (value2._count?.Followers || 0) + 1,
           }
         }
         queryClient.setQueryData(["users", userId], shallow)
@@ -73,7 +74,7 @@ export default function UserInfo({username, session }: Props) {
             Followers: shallow[index].Followers.filter((v) => v.id !== session?.user?.email),
             _count: {
               ...shallow[index]._count,
-              Followers: shallow[index]._count?.Followers - 1,
+              Followers: (shallow[index]._count?.Followers || 0) - 1,
             }
           }
           queryClient.setQueryData(["users", "followRecommends"], shallow);
@@ -85,7 +86,7 @@ export default function UserInfo({username, session }: Props) {
             Followers: value2.Followers.filter((v) => v.id !== session?.user?.email),
             _count: {
               ...value2._count,
-              Followers: value2._count?.Followers - 1,
+              Followers: (value2._count?.Followers || 0) - 1,
             }
           }
           queryClient.setQueryData(["users", userId], shallow)
@@ -113,7 +114,7 @@ export default function UserInfo({username, session }: Props) {
             Followers: shallow[index].Followers.filter((v) => v.id !== session?.user?.email),
             _count: {
               ...shallow[index]._count,
-              Followers: shallow[index]._count?.Followers - 1,
+              Followers: (shallow[index]._count?.Followers || 0)- 1,
             }
           }
           queryClient.setQueryData(["users", "followRecommends"], shallow);
@@ -125,7 +126,7 @@ export default function UserInfo({username, session }: Props) {
             Followers: value2.Followers.filter((v) => v.id !== session?.user?.email),
             _count: {
               ...value2._count,
-              Followers: value2._count?.Followers - 1,
+              Followers:( value2._count?.Followers || 0) - 1,
             }
           }
           queryClient.setQueryData(["users", userId], shallow)
@@ -145,7 +146,7 @@ export default function UserInfo({username, session }: Props) {
             Followers: [{ id: session?.user?.email as string }],
             _count: {
               ...shallow[index]._count,
-              Followers: shallow[index]._count?.Followers + 1,
+              Followers: (shallow[index]._count?.Followers || 0)+ 1,
             }
           }
           queryClient.setQueryData(["users", "followRecommends"], shallow);
@@ -158,7 +159,7 @@ export default function UserInfo({username, session }: Props) {
           Followers: [{ userId: session?.user?.email as string }],
           _count: {
             ...value2._count,
-            Followers: value2._count?.Followers + 1,
+            Followers: (value2._count?.Followers || 0) + 1,
           }
         }
         queryClient.setQueryData(["users", userId], shallow)
@@ -200,7 +201,7 @@ export default function UserInfo({username, session }: Props) {
 
   const followed = user.Followers?.find((v) => v.id === session?.user?.email);
   console.log(session?.user?.email, followed);
-
+  console.log('user?._count?.Followers: ', user?._count?.Followers)
   const onFollow: MouseEventHandler<HTMLButtonElement> = (e) => {
     e.stopPropagation();
     e.preventDefault();
@@ -227,18 +228,20 @@ export default function UserInfo({username, session }: Props) {
             <div>{user.nickname}</div>
             <div>@{user.id}</div>
           </div>
-          {user.id !== session?.user?.email &&
-            <button
-              onClick={onFollow}
-              className={cx(style.followButton, followed && style.followed)}>{followed ? '팔로잉' : '팔로우'}</button>}
+          {
+            user.id !== session?.user?.email
+            && <button 
+            onClick={onFollow} 
+            className={cx(style.followButton, followed && style.followed)}>{followed ? '팔로잉' : '팔로우'}</button>
+          }
         </div>
         <div className={style.userFollower}>
           <div>
-            {user._count?.Followers} 팔로워
+            {user?._count?.Followers} 팔로워
           </div>
           &nbsp;
           <div>
-            {user._count?.Followings} 팔로우 중
+            {user?._count?.Followings} 팔로우 중
           </div>
         </div>
       </div>

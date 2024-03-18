@@ -17,7 +17,6 @@ export default function FollowRecommend({ user }: Props) {
   const queryClient = useQueryClient();
   const {mutate: follow} = useMutation({
     mutationFn: (userId: string) => {
-      console.log('follow mutationFn: ', userId);
       return fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${userId}/follow`, {
         credentials: 'include',
         method: 'post',
@@ -33,7 +32,7 @@ export default function FollowRecommend({ user }: Props) {
           Followers: [{ id: session?.user?.email as string }],
           _count: {
             ...shallow[index]._count,
-            Followers: shallow[index]._count?.Followers + 1,
+            Followers: (shallow[index]._count?.Followers || 0) + 1,
           }
         }
         queryClient.setQueryData(["users", "followRecommends"], shallow)
@@ -45,7 +44,7 @@ export default function FollowRecommend({ user }: Props) {
           Followers: [{ id: session?.user?.email as string }],
           _count: {
             ...value2._count,
-            Followers: value2._count?.Followers + 1,
+            Followers: (value2._count?.Followers || 0) + 1,
           }
         }
         queryClient.setQueryData(["users", userId], shallow)
@@ -62,7 +61,7 @@ export default function FollowRecommend({ user }: Props) {
           Followers: shallow[index].Followers.filter((v) => v.id !== session?.user?.email),
           _count: {
             ...shallow[index]._count,
-            Followers: shallow[index]._count?.Followers - 1,
+            Followers: (shallow[index]._count?.Followers || 0)- 1,
           }
         }
         queryClient.setQueryData(["users", "followRecommends"], shallow);
@@ -73,7 +72,7 @@ export default function FollowRecommend({ user }: Props) {
             Followers: value2.Followers.filter((v) => v.id !== session?.user?.email),
             _count: {
               ...value2._count,
-              Followers: value2._count?.Followers - 1,
+              Followers: (value2._count?.Followers || 0) - 1,
             }
           }
           queryClient.setQueryData(["users", userId], shallow)
@@ -84,7 +83,6 @@ export default function FollowRecommend({ user }: Props) {
 
   const {mutate: unfollow} = useMutation({
     mutationFn: (userId: string) => {
-      console.log('unfollow', userId);
       return fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${userId}/follow`, {
         credentials: 'include',
         method: 'delete',
@@ -100,7 +98,7 @@ export default function FollowRecommend({ user }: Props) {
           Followers: shallow[index].Followers.filter((v) => v.id !== session?.user?.email),
           _count: {
             ...shallow[index]._count,
-            Followers: shallow[index]._count?.Followers - 1,
+            Followers: (shallow[index]._count?.Followers || 0) - 1,
           }
         }
         queryClient.setQueryData(["users", "followRecommends"], shallow);
@@ -111,7 +109,7 @@ export default function FollowRecommend({ user }: Props) {
             Followers: value2.Followers.filter((v) => v.id !== session?.user?.email),
             _count: {
               ...value2._count,
-              Followers: value2._count?.Followers - 1,
+              Followers: (value2._count?.Followers || 0) - 1,
             }
           }
           queryClient.setQueryData(["users", userId], shallow)
@@ -128,7 +126,7 @@ export default function FollowRecommend({ user }: Props) {
           Followers: [{ id: session?.user?.email as string }],
           _count: {
             ...shallow[index]._count,
-            Followers: shallow[index]._count?.Followers + 1,
+            Followers:( shallow[index]._count?.Followers || 0) + 1,
           }
         }
         queryClient.setQueryData(["users", "followRecommends"], shallow)
@@ -140,7 +138,7 @@ export default function FollowRecommend({ user }: Props) {
           Followers: [{ id: session?.user?.email as string }],
           _count: {
             ...value2._count,
-            Followers: value2._count?.Followers + 1,
+            Followers: (value2._count?.Followers || 0) + 1,
           }
         }
         queryClient.setQueryData(["users", userId], shallow)
