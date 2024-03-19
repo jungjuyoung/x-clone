@@ -1,15 +1,14 @@
-interface UserID{
-  id: string | null | undefined;
-  userId: string
+interface UserID {
+  id: string,
 }
 
 export interface User {
   id: string;
   nickname: string;
   image: string;
-  Followers: UserID[];
-  _count:{
+  Followers: UserID[],
+  _count: {
     Followers: number,
-    Followings: number
+    Followings: number,
   }
 }

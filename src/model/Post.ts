@@ -1,23 +1,24 @@
-import { PostImage } from './PostImage';
-import { User } from './User';
+import { User } from "./User";
+import {PostImage} from "@/model/PostImage";
 
-interface UserID{
-  userId: string
+interface UserID {
+  userId: string,
 }
 
 export interface Post {
-  noImage?: boolean;
   postId: number;
+  User: User;
   content: string;
   createdAt: Date;
-  User: User;
-  Images: PostImage[];
-  Hearts: UserID[];
-  Reposts: UserID[];
-  Comments: UserID[];
-  _count:{
+  Images: PostImage[],
+  Hearts: UserID[],
+  Reposts: UserID[],
+  Comments: UserID[],
+  _count: {
     Hearts: number,
     Reposts: number,
-    Comments: number
-  }
+    Comments: number,
+  },
+  Original?: Post; // 재게시
+  Parent?: Post; // 답글
 }
