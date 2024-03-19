@@ -20,10 +20,11 @@ export default function UserInfo({username, session }: Props) {
     staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
     gcTime: 300 * 1000,
   });
+  const followed = user?.Followers?.find((v) => v.id === session?.user?.email);
+  console.log('[UserInfo] followed: ',followed)
   const queryClient = useQueryClient();
-  const follow = useMutation({
+  const {mutate: follow} = useMutation({
     mutationFn: (userId: string) => {
-      console.log('follow', userId);
       return fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${userId}/follow`, {
         credentials: 'include',
         method: 'post',
@@ -33,60 +34,55 @@ export default function UserInfo({username, session }: Props) {
       const value: User[] | undefined = queryClient.getQueryData(["users", "followRecommends"]);
       if (value) {
         const index = value.findIndex((v) => v.id === userId);
-        if (index > -1) {
-          console.log(value, userId, index);
-          const shallow = [...value];
-          console.log('shallow: ',shallow)
-          shallow[index] = {
-            ...shallow[index],
-            Followers: [{ id: session?.user?.email as string }],
-            _count: {
-              ...shallow[index]._count,
-              Followers: (shallow[index]._count?.Followers || 0) + 1,
-            }
-          }
-          queryClient.setQueryData(["users", "followRecommends"], shallow)
-        }
-      }
-      const value2: User | undefined = queryClient.getQueryData(["users", userId]);
-      if (value2) {
-        const shallow: User = {
-          ...value2,
+        const shallow = [...value];
+        shallow[index] = {
+          ...shallow[index],
           Followers: [{ id: session?.user?.email as string }],
           _count: {
-            ...value2._count,
-            Followers: (value2._count?.Followers || 0) + 1,
+            ...shallow[index]._count,
+            Followers: (shallow[index]._count?.Followers || 0) + 1,
+          }
+        }
+        queryClient.setQueryData(["users", "followRecommends"], shallow)
+      }
+      const userInfo: User | undefined = queryClient.getQueryData(["users", userId]);
+      console.log('[UserInfo] 변경을 가한다 follow', userInfo)
+      if (userInfo) {
+        const shallow = {
+          ...userInfo,
+          Followers: [{ id: session?.user?.email as string }],
+          _count: {
+            ...userInfo._count,
+            Followers: (userInfo._count?.Followers || 0) + 1,
           }
         }
         queryClient.setQueryData(["users", userId], shallow)
       }
     },
     onError(error, userId: string) {
-      console.error(error);
       const value: User[] | undefined = queryClient.getQueryData(["users", "followRecommends"]);
       if (value) {
         const index = value.findIndex((v) => v.id === userId);
-        console.log(value, userId, index);
-        if (index > -1) {
-          const shallow = [...value];
-          shallow[index] = {
-            ...shallow[index],
-            Followers: shallow[index].Followers.filter((v) => v.id !== session?.user?.email),
-            _count: {
-              ...shallow[index]._count,
-              Followers: (shallow[index]._count?.Followers || 0) - 1,
-            }
+        console.log('follow onError value: ',value, 'userId: ',userId,'index: ', index);
+        const shallow = [...value];
+        shallow[index] = {
+          ...shallow[index],
+          Followers: shallow[index].Followers.filter((v) => v.id !== session?.user?.email),
+          _count: {
+            ...shallow[index]._count,
+            Followers: (shallow[index]._count?.Followers || 0)- 1,
           }
-          queryClient.setQueryData(["users", "followRecommends"], shallow);
         }
-        const value2: User | undefined = queryClient.getQueryData(["users", userId]);
-        if (value2) {
+        queryClient.setQueryData(["users", "followRecommends"], shallow);
+        const userInfo: User | undefined = queryClient.getQueryData(["users", userId]);
+        console.log('[UserInfo] 변경을 가한다 follow 롤백', userInfo)
+        if (userInfo) {
           const shallow = {
-            ...value2,
-            Followers: value2.Followers.filter((v) => v.id !== session?.user?.email),
+            ...userInfo,
+            Followers: userInfo.Followers.filter((v) => v.id !== session?.user?.email),
             _count: {
-              ...value2._count,
-              Followers: (value2._count?.Followers || 0) - 1,
+              ...userInfo._count,
+              Followers: (userInfo._count?.Followers || 0) - 1,
             }
           }
           queryClient.setQueryData(["users", userId], shallow)
@@ -94,9 +90,9 @@ export default function UserInfo({username, session }: Props) {
       }
     },
   })
-  const unfollow = useMutation({
+
+  const {mutate: unfollow} = useMutation({
     mutationFn: (userId: string) => {
-      console.log('unfollow', userId);
       return fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${userId}/follow`, {
         credentials: 'include',
         method: 'delete',
@@ -106,27 +102,25 @@ export default function UserInfo({username, session }: Props) {
       const value: User[] | undefined = queryClient.getQueryData(["users", "followRecommends"]);
       if (value) {
         const index = value.findIndex((v) => v.id === userId);
-        console.log(value, userId, index);
-        if (index > -1) {
-          const shallow = [...value];
-          shallow[index] = {
-            ...shallow[index],
-            Followers: shallow[index].Followers.filter((v) => v.id !== session?.user?.email),
-            _count: {
-              ...shallow[index]._count,
-              Followers: (shallow[index]._count?.Followers || 0)- 1,
-            }
+        const shallow = [...value];
+        shallow[index] = {
+          ...shallow[index],
+          Followers: shallow[index].Followers.filter((v) => v.id !== session?.user?.email),
+          _count: {
+            ...shallow[index]._count,
+            Followers: (shallow[index]._count?.Followers || 0) - 1,
           }
-          queryClient.setQueryData(["users", "followRecommends"], shallow);
         }
-        const value2: User | undefined = queryClient.getQueryData(["users", userId]);
-        if (value2) {
+        queryClient.setQueryData(["users", "followRecommends"], shallow);
+        const userInfo: User | undefined = queryClient.getQueryData(["users", userId]);
+        console.log('[UserInfo] 변경을 가한다 unfollow', userInfo)
+        if (userInfo) {
           const shallow = {
-            ...value2,
-            Followers: value2.Followers.filter((v) => v.id !== session?.user?.email),
+            ...userInfo,
+            Followers: userInfo.Followers.filter((v) => v.id !== session?.user?.email),
             _count: {
-              ...value2._count,
-              Followers:( value2._count?.Followers || 0) - 1,
+              ...userInfo._count,
+              Followers: (userInfo._count?.Followers || 0) - 1,
             }
           }
           queryClient.setQueryData(["users", userId], shallow)
@@ -134,38 +128,36 @@ export default function UserInfo({username, session }: Props) {
       }
     },
     onError(error, userId: string) {
-      console.error(error);
       const value: User[] | undefined = queryClient.getQueryData(["users", "followRecommends"]);
       if (value) {
         const index = value.findIndex((v) => v.id === userId);
-        console.log(value, userId, index);
-        if (index > -1) {
-          const shallow = [...value];
-          shallow[index] = {
-            ...shallow[index],
-            Followers: [{ id: session?.user?.email as string }],
-            _count: {
-              ...shallow[index]._count,
-              Followers: (shallow[index]._count?.Followers || 0)+ 1,
-            }
-          }
-          queryClient.setQueryData(["users", "followRecommends"], shallow);
-        }
-      }
-      const value2: User | undefined = queryClient.getQueryData(["users", userId]);
-      if (value2) {
-        const shallow = {
-          ...value2,
-          Followers: [{ userId: session?.user?.email as string }],
+        const shallow = [...value];
+        shallow[index] = {
+          ...shallow[index],
+          Followers: [{ id: session?.user?.email as string }],
           _count: {
-            ...value2._count,
-            Followers: (value2._count?.Followers || 0) + 1,
+            ...shallow[index]._count,
+            Followers:( shallow[index]._count?.Followers || 0) + 1,
+          }
+        }
+        queryClient.setQueryData(["users", "followRecommends"], shallow)
+      }
+      const userInfo: User | undefined = queryClient.getQueryData(["users", userId]);
+      console.log('[UserInfo] 변경을 가한다 unfollow 롤백', userInfo)
+      if (userInfo) {
+        const shallow = {
+          ...userInfo,
+          Followers: [{ id: session?.user?.email as string }],
+          _count: {
+            ...userInfo._count,
+            Followers: (userInfo._count?.Followers || 0) + 1,
           }
         }
         queryClient.setQueryData(["users", userId], shallow)
       }
     },
   })
+  
 
   // console.log('error');
   // console.dir(error);
@@ -199,17 +191,13 @@ export default function UserInfo({username, session }: Props) {
     return null;
   }
 
-  const followed = user.Followers?.find((v) => v.id === session?.user?.email);
-  console.log(session?.user?.email, followed);
-  console.log('user?._count?.Followers: ', user?._count?.Followers)
   const onFollow: MouseEventHandler<HTMLButtonElement> = (e) => {
     e.stopPropagation();
     e.preventDefault();
-    console.log('follow', followed, user.id);
     if (followed) {
-      unfollow.mutate(user.id);
+      unfollow(user.id);
     } else {
-      follow.mutate(user.id);
+      follow(user.id);
     }
   };
 

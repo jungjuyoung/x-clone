@@ -13,7 +13,8 @@ type Props = {
 }
 export default function FollowRecommend({ user }: Props) {
   const { data: session } = useSession();
-  const followed = !!user.Followers?.find((v) => v.id === session?.user?.email);
+  const followed = !!user?.Followers?.find((v) => v.id === session?.user?.email);
+  // console.log('[FollowRecommend]followed: ',followed)
   const queryClient = useQueryClient();
   const {mutate: follow} = useMutation({
     mutationFn: (userId: string) => {
@@ -37,14 +38,15 @@ export default function FollowRecommend({ user }: Props) {
         }
         queryClient.setQueryData(["users", "followRecommends"], shallow)
       }
-      const value2: User | undefined = queryClient.getQueryData(["users", userId]);
-      if (value2) {
+      const userInfo: User | undefined = queryClient.getQueryData(["users", userId]);
+      console.log('[FollowRecommend] 변경을 가한다 follow', userInfo)
+      if (userInfo) {
         const shallow = {
-          ...value2,
+          ...userInfo,
           Followers: [{ id: session?.user?.email as string }],
           _count: {
-            ...value2._count,
-            Followers: (value2._count?.Followers || 0) + 1,
+            ...userInfo._count,
+            Followers: (userInfo._count?.Followers || 0) + 1,
           }
         }
         queryClient.setQueryData(["users", userId], shallow)
@@ -65,14 +67,15 @@ export default function FollowRecommend({ user }: Props) {
           }
         }
         queryClient.setQueryData(["users", "followRecommends"], shallow);
-        const value2: User | undefined = queryClient.getQueryData(["users", userId]);
-        if (value2) {
+        const userInfo: User | undefined = queryClient.getQueryData(["users", userId]);
+        console.log('[FollowRecommend] 변경을 가한다 follow 롤백', userInfo)
+        if (userInfo) {
           const shallow = {
-            ...value2,
-            Followers: value2.Followers.filter((v) => v.id !== session?.user?.email),
+            ...userInfo,
+            Followers: userInfo.Followers.filter((v) => v.id !== session?.user?.email),
             _count: {
-              ...value2._count,
-              Followers: (value2._count?.Followers || 0) - 1,
+              ...userInfo._count,
+              Followers: (userInfo._count?.Followers || 0) - 1,
             }
           }
           queryClient.setQueryData(["users", userId], shallow)
@@ -102,14 +105,15 @@ export default function FollowRecommend({ user }: Props) {
           }
         }
         queryClient.setQueryData(["users", "followRecommends"], shallow);
-        const value2: User | undefined = queryClient.getQueryData(["users", userId]);
-        if (value2) {
+        const userInfo: User | undefined = queryClient.getQueryData(["users", userId]);
+        console.log('[FollowRecommend] 변경을 가한다 unfollow', userInfo)
+        if (userInfo) {
           const shallow = {
-            ...value2,
-            Followers: value2.Followers.filter((v) => v.id !== session?.user?.email),
+            ...userInfo,
+            Followers: userInfo.Followers.filter((v) => v.id !== session?.user?.email),
             _count: {
-              ...value2._count,
-              Followers: (value2._count?.Followers || 0) - 1,
+              ...userInfo._count,
+              Followers: (userInfo._count?.Followers || 0) - 1,
             }
           }
           queryClient.setQueryData(["users", userId], shallow)
@@ -131,14 +135,15 @@ export default function FollowRecommend({ user }: Props) {
         }
         queryClient.setQueryData(["users", "followRecommends"], shallow)
       }
-      const value2: User | undefined = queryClient.getQueryData(["users", userId]);
-      if (value2) {
+      const userInfo: User | undefined = queryClient.getQueryData(["users", userId]);
+      console.log('[FollowRecommend] 변경을 가한다 unfollow 롤백', userInfo)
+      if (userInfo) {
         const shallow = {
-          ...value2,
+          ...userInfo,
           Followers: [{ id: session?.user?.email as string }],
           _count: {
-            ...value2._count,
-            Followers: (value2._count?.Followers || 0) + 1,
+            ...userInfo._count,
+            Followers: (userInfo._count?.Followers || 0) + 1,
           }
         }
         queryClient.setQueryData(["users", userId], shallow)
