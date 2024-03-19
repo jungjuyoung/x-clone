@@ -5,25 +5,20 @@ import style from "./logoutButton.module.css";
 import { useRouter } from "next/navigation";
 import { Session } from "@auth/core/types";
 import Image from "next/image";
+import { useQueryClient } from '@tanstack/react-query';
 
 type Props={
   me: Session | null
 }
 export default function LogoutButton({me}:Props) {
   const router = useRouter();
-  // const { data: me } = useSession();
-  // const me = {
-  //   // 임시로 내 정보 있는것처럼
-  //   id: "nadia",
-  //   nickname: "나디아",
-  //   image: "/5Udwvqim.jpg",
-  // };
+  const queryClient = useQueryClient()
 
   if (!me?.user) return null;
-  // console.log("LogoutButton me: ", me);
 
   const onLogout = () => {
-    console.log("LogoutButton call signOut at onLogout function");
+    queryClient.invalidateQueries({queryKey: ['posts']})
+    queryClient.invalidateQueries({queryKey: ['users']})
     signOut({
       redirect: false,
     }).then(() => {

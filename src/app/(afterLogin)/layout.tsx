@@ -22,6 +22,7 @@ export default async function AfterLoginLayout({
 
   return (
     <div className={style.container}>
+      <RQProvider>
       <header className={style.leftSectionWrapper}>
         <section className={style.leftSection}>
           <div className={style.leftSectionFixed}>
@@ -55,21 +56,20 @@ export default async function AfterLoginLayout({
           </div>
         </section>
       </header>
-      <RQProvider>
-        <div className={style.rightSectionWrapper}>
-          <div className={style.rightSectionInner}>
-            <main className={style.main}>{children}</main>
-            <section className={style.rightSection}>
-              <RightSearchZone />
-              <TrendSection />
-              <div className={style.followRecommend}>
-                <h3>팔로우 추천</h3>
-                <FollowRecommendSection />
-              </div>
-            </section>
-          </div>
+      <div className={style.rightSectionWrapper}>
+        <div className={style.rightSectionInner}>
+          <main className={style.main}>{children}</main>
+          <section className={style.rightSection}>
+            <RightSearchZone />
+            <TrendSection />
+            <div className={style.followRecommend}>
+              <h3>팔로우 추천</h3>
+              <FollowRecommendSection />
+            </div>
+          </section>
         </div>
-        {modal}
+      </div>
+      {modal}
       </RQProvider>
     </div>
   );
