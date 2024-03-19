@@ -6,6 +6,12 @@ import style from "./home.module.css";
 import Loading from "./loading";
 import TabDeciderSuspense from "./_component/TabDeciderSuspense";
 import { auth } from '@/auth';
+import { Metadata } from 'next';
+
+export const metadata:Metadata = {
+  title: '홈 | X.com',
+  description: 'X.com 클론코딩 홈'
+}
 
 const Home = async () => {
   const session = await auth()

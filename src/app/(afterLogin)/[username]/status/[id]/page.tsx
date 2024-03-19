@@ -1,46 +1,49 @@
 import BackButton from "@/app/(afterLogin)/_component/BackButton";
-import style from "./singlePost.module.css";
-import Comments from "../[id]/_component/Comments";
-import CommentForm from "../[id]/_component/CommentForm";
-import SinglePost from "../[id]/_component/SinglePost";
-import {
-  HydrationBoundary,
-  QueryClient,
-  dehydrate,
-} from "@tanstack/react-query";
-import { getSinglePost } from "./_lib/getSinglePost";
-import { getComments } from "./_lib/getComments";
+import style from './singlePost.module.css';
+import CommentForm from "@/app/(afterLogin)/[username]/status/[id]/_component/CommentForm";
+import SinglePost from "@/app/(afterLogin)/[username]/status/[id]/_component/SinglePost";
+import {dehydrate, HydrationBoundary, QueryClient} from "@tanstack/react-query";
+import {getComments} from "@/app/(afterLogin)/[username]/status/[id]/_lib/getComments";
+import React from "react";
+import Comments from "@/app/(afterLogin)/[username]/status/[id]/_component/Comments";
+import {User} from "@/model/User";
+import {Post} from "@/model/Post";
+import {getSinglePostServer} from "@/app/(afterLogin)/[username]/status/[id]/_lib/getSinglePostServer";
+import {getUserServer} from "@/app/(afterLogin)/[username]/_lib/getUserServer";
 
 type Props = {
-  params: { id: string };
-};
-export default async function Page({ params }: Props) {
-  const { id } = params;
+  params: { id: string, username: string }
+}
+
+export async function generateMetadata({params: {username, id}}: Props) {
+  const user: User = await getUserServer({ queryKey: ["users", username] });
+  const post: Post = await getSinglePostServer({ queryKey: ["posts", id] });
+  return {
+    title: `Z에서 ${user.nickname} 님 : ${post.content}`,
+    description: post.content,
+  }
+}
+
+export default async function Page({params}: Props) {
+  const {id} = params;
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery({
-    queryKey: ["posts", id],
-    queryFn: getSinglePost,
-  });
-  await queryClient.prefetchInfiniteQuery({
-    queryKey: ["posts", id, "comments"],
-    queryFn: getComments,
-    initialPageParam:0
-  });
-  const dehydratedState = dehydrate(queryClient);
+  await queryClient.prefetchQuery({queryKey: ['posts', id], queryFn: getSinglePostServer})
+  await queryClient.prefetchQuery({queryKey: ['posts', id, 'comments'], queryFn: getComments})
+  const dehydratedState = dehydrate(queryClient)
 
   return (
     <div className={style.main}>
       <HydrationBoundary state={dehydratedState}>
         <div className={style.header}>
-          <BackButton />
+          <BackButton/>
           <h3 className={style.headerTitle}>게시하기</h3>
         </div>
-        <SinglePost id={id} />
-        <CommentForm id={id} />
+        <SinglePost id={id}/>
+        <CommentForm id={id}/>
         <div>
           <Comments id={id} />
         </div>
       </HydrationBoundary>
     </div>
-  );
+  )
 }
