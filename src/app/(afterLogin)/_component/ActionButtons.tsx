@@ -20,7 +20,7 @@ export default function ActionButtons({ white, post }: Props) {
   const liked = !!post.Hearts?.find((v) => v.userId === session?.user?.email);
   const { postId } = post;
 
-  const heart = useMutation({
+  const {mutate: heart} = useMutation({
     mutationFn: () => {
       return fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/posts/${postId}/heart`, {
         method: 'post',
@@ -125,7 +125,7 @@ export default function ActionButtons({ white, post }: Props) {
     },
   });
 
-  const unheart = useMutation({
+  const {mutate: unheart} = useMutation({
     mutationFn: () => {
       return fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/posts/${postId}/heart`, {
         method: 'delete',
@@ -226,7 +226,7 @@ export default function ActionButtons({ white, post }: Props) {
     },
   })
 
-  const repost = useMutation({
+  const {mutate: repost} = useMutation({
     mutationFn: () => {
       return fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/posts/${post.postId}/reposts`, {
         method: 'post',
@@ -282,7 +282,7 @@ export default function ActionButtons({ white, post }: Props) {
     }
   });
 
-  const deleteRepost = useMutation({
+  const {mutate: deleteRepost} = useMutation({
     mutationFn: () => {
       return fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/posts/${post.postId}/reposts`, {
         method: 'delete',
@@ -357,17 +357,17 @@ export default function ActionButtons({ white, post }: Props) {
   const onClickRepost: MouseEventHandler<HTMLButtonElement> = (e) => {
     e.stopPropagation();
     if (!reposted) {
-      repost.mutate();
+      repost();
     } else {
-      deleteRepost.mutate();
+      deleteRepost();
     }
   }
   const onClickHeart: MouseEventHandler<HTMLButtonElement> = (e) => {
     e.stopPropagation();
     if (liked) {
-      unheart.mutate();
+      unheart();
     } else {
-      heart.mutate();
+      heart();
     }
   }
 
