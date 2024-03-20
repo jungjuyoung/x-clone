@@ -1,3 +1,4 @@
+
 .modalBackground {
   width: 100vw;
   height: 100%;
@@ -38,13 +39,21 @@
   justify-content: center;
 }
 .closeButton:hover {
-  background-color: rgba(15, 20, 25, 0.1);
+  background-color: rgba(15,20,25, 0.1);
 }
 
 .modalForm {
   display: flex;
   flex-direction: column;
   flex: 1;
+}
+
+.modalOriginal {
+  padding: 0 16px 20px;
+  margin-top: 54px;
+  margin-bottom: -54px;
+  display: flex;
+  flex-direction: row;
 }
 
 .modalBody {
@@ -83,7 +92,7 @@
   font-size: 20px;
 }
 .input::placeholder {
-  font-family: "Malgun Gothic", sans-serif;
+  font-family: 'Malgun Gothic', sans-serif;
 }
 
 .modalFooter {

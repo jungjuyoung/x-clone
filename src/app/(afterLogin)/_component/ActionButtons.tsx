@@ -6,6 +6,8 @@ import {InfiniteData, useMutation, useQueryClient} from "@tanstack/react-query";
 import {Post} from "@/model/Post";
 import {useSession} from "next-auth/react";
 import { useRouter } from 'next/navigation';
+import { useModalStore } from '@/store/modal';
+
 
 type Props = {
   white?: boolean,
@@ -15,6 +17,7 @@ export default function ActionButtons({ white, post }: Props) {
   const queryClient = useQueryClient();
   const { data: session }  = useSession();
   const router = useRouter()
+  const modalStore = useModalStore()
 
   const reposted = !!post.Reposts?.find((v) => v.userId === session?.user?.email);
   const liked = !!post.Hearts?.find((v) => v.userId === session?.user?.email);
@@ -299,7 +302,7 @@ export default function ActionButtons({ white, post }: Props) {
           if (value && 'pages' in value) {
             console.log('array', value);
             const obj = value.pages.flat().find((v) => v.postId === postId);
-            const repost = value.pages.flat().find((v) => v.Original?.postId === postId && v.User.id === session?.user?.email);
+            const repost = value.pages.flat().find((v) => v.Original?.postId === postId && v.User.id === session?.user?.email); // repost가 존재하는지
             if (obj) { // 존재는 하는지
               const pageIndex = value.pages.findIndex((page) => page.includes(obj));
               const index = value.pages[pageIndex].findIndex((v) => v.postId === postId);
@@ -342,9 +345,9 @@ export default function ActionButtons({ white, post }: Props) {
 
   const onClickComment: MouseEventHandler<HTMLButtonElement> = (e) => {
     e.stopPropagation();
-
-    // modalStore.setMode('comment');
-    // modalStore.setData(post);
+    
+    modalStore.setMode('comment');
+    modalStore.setData(post);
     router.push('/compose/tweet');
     // const formData = new FormData();
     // formData.append('content', '답글 테스트');
