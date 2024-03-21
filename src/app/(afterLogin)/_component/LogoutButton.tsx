@@ -26,6 +26,7 @@ export default function LogoutButton({me}:Props) {
         method: 'POST',
         credentials: 'include'
       })
+      router.refresh();
       router.replace("/");
     });
   };
