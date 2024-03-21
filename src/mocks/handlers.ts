@@ -316,7 +316,7 @@ export const handlers = [
   http.get('/api/followRecommends', ({ request }) => {
     return HttpResponse.json(User);
   }),
-  http.get('/api/trends', ({ request }) => {
+  http.get('/api/hashtags/trends', ({ request }) => {
     return HttpResponse.json(
       [
         { tagId: 1, title: '제로초', count: 823601 },
