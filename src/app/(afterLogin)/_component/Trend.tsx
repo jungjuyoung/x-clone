@@ -1,9 +1,9 @@
 import Link from "next/link";
 import style from "./trend.module.css";
-import { HashTag } from "@/model/HashTag";
+import { Hashtag } from "@/model/HashTag";
 
 type Props = {
-  trend: HashTag;
+  trend: Hashtag;
 };
 export default function Trend({ trend }: Props) {
   return (
