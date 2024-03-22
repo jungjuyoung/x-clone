@@ -21,6 +21,22 @@ export async function generateMetadata({params: {username, id}}: Props) {
   return {
     title: `Z에서 ${user.nickname} 님 : ${post.content}`,
     description: post.content,
+    openGraph: {
+      title: `Z에서 ${user.nickname} 님 : ${post.content}`,
+      description: post.content,
+      images: post.Images.length > 0 ? post.Images?.map(v => ({
+        url: `${process.env.NEXT_PUBLIC_URL}${v.link}`, // Must be an absolute URL
+        width: 600,
+        height: 400,
+        
+      })) : [ // 게시글에서는 게시글에 이미지가 있는경우 그것을 넣고, 없는경우 디폴트로 나올 이미지 설정.
+          {
+            url: `${process.env.NEXT_PUBLIC_URL}${user.Followers}`, // Must be an absolute URL
+            width: 400,
+            height: 400,
+          },
+        ],
+    },
   }
 }
 
