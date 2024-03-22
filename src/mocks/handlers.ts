@@ -316,6 +316,33 @@ export const handlers = [
   http.get('/api/followRecommends', ({ request }) => {
     return HttpResponse.json(User);
   }),
+  http.get('/api/users/:userId/rooms', ({ request }) => {
+    console.log(request.body)
+    return HttpResponse.json(
+      [
+        { 
+          Receiver: {
+            id: User[0].id,
+            nickname: User[0].nickname,
+            password: faker.internet.password,
+            image: User[0].image,
+            Posts: [null],
+            Follwers: [
+              {
+                id: User[0].id
+              }
+            ],
+            _count: {
+              Followers: 0,
+              Followings: 0
+            }
+          },
+          content: `채팅을 위한 컨텐트 게시글`,
+          createdAt: generateDate(),
+        },
+      ]
+    )
+  }),
   http.get('/api/hashtags/trends', ({ request }) => {
     return HttpResponse.json(
       [
