@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 export default function BackButton() {
   const router = useRouter()
   const onClick=() => {
-    router.replace("/home");
+    router.back();
   }
   return (
     <button className={style.backButton} onClick={onClick}>
