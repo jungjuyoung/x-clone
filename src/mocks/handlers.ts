@@ -317,9 +317,28 @@ export const handlers = [
     return HttpResponse.json(User);
   }),
   http.get('/api/users/:userId/rooms', ({ request }) => {
-    console.log(request.body)
     return HttpResponse.json(
       [
+        { 
+          Receiver: {
+            id: User[1].id,
+            nickname: User[1].nickname,
+            password: faker.internet.password,
+            image: User[1].image,
+            Posts: [null],
+            Follwers: [
+              {
+                id: User[1].id
+              }
+            ],
+            _count: {
+              Followers: 0,
+              Followings: 0
+            }
+          },
+          content: `안녕하세요.`,
+          createdAt: generateDate(),
+        },
         { 
           Receiver: {
             id: User[0].id,
@@ -337,7 +356,7 @@ export const handlers = [
               Followings: 0
             }
           },
-          content: `채팅을 위한 컨텐트 게시글`,
+          content: `안녕히가세요.`,
           createdAt: generateDate(),
         },
       ]
