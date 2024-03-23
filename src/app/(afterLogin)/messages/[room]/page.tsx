@@ -6,6 +6,7 @@ import cx from "classnames";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/ko";
 import dayjs from "dayjs";
+import MessageForm from './_component/MessageForm';
 
 dayjs.locale("ko");
 dayjs.extend(relativeTime);
@@ -77,6 +78,7 @@ export default function ChatRoom() {
           );
         })}
       </div>
+      <MessageForm/>
     </main>
   );
 }
