@@ -1,22 +1,34 @@
-import { faker } from "@faker-js/faker";
 import style from "./chatRoom.module.css";
-import Link from "next/link";
-import BackButton from "@/app/(afterLogin)/_component/BackButton";
 import cx from "classnames";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/ko";
 import dayjs from "dayjs";
 import MessageForm from './_component/MessageForm';
+import { auth } from '@/auth';
+import { QueryClient } from '@tanstack/react-query';
+import { getUserServer } from '../../[username]/_lib/getUserServer';
+import UserInfo from './_component/UserInfo';
 
 dayjs.locale("ko");
 dayjs.extend(relativeTime);
 
-export default function ChatRoom() {
-  const user = {
-    id: "hero",
-    nickname: "영웅",
-    image: faker.image.avatar(),
-  };
+type Props={
+  params: {
+    room: string
+  }
+}
+export default async function ChatRoom({params}: Props) {
+  const session = await auth();
+  const queryClient = new QueryClient()
+  const ids = params.room.split('-').filter(v => v !== session?.user?.email)
+  if(!ids[0]) return null;
+  await queryClient.prefetchQuery({queryKey: ['users', ids[0]], queryFn:getUserServer})
+  
+  // const user = {
+  //   id: "hero",
+  //   nickname: "영웅",
+  //   image: faker.image.avatar(),
+  // };
   const messages = [
     {
       messageId: 1,
@@ -36,19 +48,7 @@ export default function ChatRoom() {
 
   return (
     <main className={style.main}>
-      <div className={style.header}>
-        <BackButton />
-        <div>
-          <h2>{user.nickname}</h2>
-        </div>
-      </div>
-      <Link href={user.nickname} className={style.userInfo}>
-        <img src={user.image} alt={user.id} />
-        <div>
-          <b>{user.nickname}</b>
-        </div>
-        <div>@{user.id}</div>
-      </Link>
+      <UserInfo id={ids[0]}/>
       <div className={style.list}>
         {messages.map((msg) => {
           if (msg.id === "zerohch0") {
