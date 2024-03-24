@@ -5,7 +5,7 @@ import "dayjs/locale/ko";
 import dayjs from "dayjs";
 import MessageForm from './_component/MessageForm';
 import { auth } from '@/auth';
-import { QueryClient } from '@tanstack/react-query';
+import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query';
 import { getUserServer } from '../../[username]/_lib/getUserServer';
 import UserInfo from './_component/UserInfo';
 
@@ -23,7 +23,8 @@ export default async function ChatRoom({params}: Props) {
   const ids = params.room.split('-').filter(v => v !== session?.user?.email)
   if(!ids[0]) return null;
   await queryClient.prefetchQuery({queryKey: ['users', ids[0]], queryFn:getUserServer})
-  
+  const dehydratedState = dehydrate(queryClient)
+
   // const user = {
   //   id: "hero",
   //   nickname: "영웅",
@@ -47,7 +48,8 @@ export default async function ChatRoom({params}: Props) {
   ];
 
   return (
-    <main className={style.main}>
+    <HydrationBoundary state={dehydratedState}>
+      <main className={style.main}>
       <UserInfo id={ids[0]}/>
       <div className={style.list}>
         {messages.map((msg) => {
@@ -80,5 +82,6 @@ export default async function ChatRoom({params}: Props) {
       </div>
       <MessageForm/>
     </main>
+    </HydrationBoundary>
   );
 }
