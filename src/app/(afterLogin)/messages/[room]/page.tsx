@@ -8,6 +8,7 @@ import { auth } from '@/auth';
 import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query';
 import { getUserServer } from '../../[username]/_lib/getUserServer';
 import UserInfo from './_component/UserInfo';
+import WebSocketComponent from './_component/WebSocketComponent';
 
 dayjs.locale("ko");
 dayjs.extend(relativeTime);
@@ -50,6 +51,7 @@ export default async function ChatRoom({params}: Props) {
   return (
     <HydrationBoundary state={dehydratedState}>
       <main className={style.main}>
+      <WebSocketComponent/>
       <UserInfo id={ids[0]}/>
       <div className={style.list}>
         {messages.map((msg) => {
@@ -80,7 +82,7 @@ export default async function ChatRoom({params}: Props) {
           );
         })}
       </div>
-      <MessageForm/>
+      <MessageForm id={ids[0]}/>
     </main>
     </HydrationBoundary>
   );
