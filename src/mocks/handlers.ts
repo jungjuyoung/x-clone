@@ -341,14 +341,14 @@ export const handlers = [
         },
         { 
           Receiver: {
-            id: User[0].id,
-            nickname: User[0].nickname,
+            id: User[2].id,
+            nickname: User[2].nickname,
             password: faker.internet.password,
-            image: User[0].image,
+            image: User[2].image,
             Posts: [null],
             Follwers: [
               {
-                id: User[0].id
+                id: User[2].id
               }
             ],
             _count: {
@@ -359,6 +359,32 @@ export const handlers = [
           content: `안녕히가세요.`,
           createdAt: generateDate(),
         },
+      ]
+    )
+  }),
+  http.get('/api/messages/:roomId', ({ request }) => {
+    return HttpResponse.json(
+      [
+        { 
+          Receiver: {
+            id: User[1].id,
+            nickname: User[1].nickname,
+            password: faker.internet.password,
+            image: User[1].image,
+            Posts: [null],
+            Follwers: [
+              {
+                id: User[1].id
+              }
+            ],
+            _count: {
+              Followers: 0,
+              Followings: 0
+            }
+          },
+          content: `안녕하세요.`,
+          createdAt: generateDate(),
+        }
       ]
     )
   }),
